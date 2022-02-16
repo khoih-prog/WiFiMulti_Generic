@@ -94,7 +94,7 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
  5. All STM32F/L/H/G/WB/MP1 with more than 32KB flash memory.
  6. AVR Mega1280, 2560, ADK. **Not yet**
 
- 7. RP2040-based boards, such as **Nano RP2040 Connect**, using [**Arduino mbed OS for Nano boards**](https://github.com/arduino/ArduinoCore-mbed).
+ 7. RP2040-based boards, such as **Nano RP2040 Connect**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
  8. RP2040-based boards, such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
 
  9. **ESP32**
