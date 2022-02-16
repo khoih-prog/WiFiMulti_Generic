@@ -22,7 +22,7 @@
 
 #### Releases v1.0.0
 
-1. Initial coding to support ESP32, ESP8266, WiFiNINA and ESP8266_AT and ESP32_AT WiFi
+1. Initial coding to support **ESP32, ESP8266, WiFiNINA and ESP8266_AT and ESP32_AT WiFi** for many boards (nRF52, SAMD, Teensy, RP2040, SAM-DUE, ESP32, ESP8266, etc.)
 
 
 
