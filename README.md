@@ -73,7 +73,7 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
 
 #### Currently Supported Boards
 
-This [**WiFiWebServer library**](https://github.com/khoih-prog/WiFiWebServer) currently supports these following boards:
+This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Generic) currently supports these following boards:
 
  1. SAM DUE
 
@@ -537,7 +537,7 @@ void loop()
 }
 ```
 
-#### 2. File [defines.h](examples/AdvancedWebServer/defines.h)
+#### 2. File [defines.h](examples/WiFiMulti/defines.h)
 
 ```cpp
 #ifndef defines_h
@@ -1922,7 +1922,7 @@ Submit issues to: [WiFiMulti_Generic issues](https://github.com/khoih-prog/WiFiM
 
 Many thanks for everyone for bug reporting, new feature suggesting, testing and contributing to the development of this library.
 
-1. Based on the [Ivan Grokhotkov's ESP8266 WiFi](https://github.com/esp8266/Arduino/tree/master/libraries/WiFi) library.
+1. Based on the [Ivan Grokhotkov's ESP8266 WiFi](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WiFi) library.
 2. Based on the [Me No Dev's ESP32 WiFi](https://github.com/espressif/arduino-esp32/tree/master/libraries/WiFi) library.
 3. Thanks to [Juraj Andrássy](https://github.com/jandrassy) to request in [WiFiMulti? #17](https://github.com/khoih-prog/WiFiNINA_Generic/discussions/17) and the [WiFiEspAT](https://github.com/jandrassy/WiFiEspAT) library
 
