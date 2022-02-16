@@ -41,6 +41,7 @@
       "platforms": ["*"]
     }
   ],
+  "license": "LGPL-3.0",
   "frameworks": "*",
   "platforms": "*",
   "examples": "examples/*/*/*.ino",
