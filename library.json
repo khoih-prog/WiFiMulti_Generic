@@ -45,7 +45,7 @@
       "name": "ArduinoSTL",
       "version": ">=1.3.3",
       "platforms": ["avr", "megaavr"]
-    },
+    }
   ],
   "license": "LGPL-3.0",
   "frameworks": "*",
