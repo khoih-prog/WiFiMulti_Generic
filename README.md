@@ -120,18 +120,18 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
 
 13. Arduino `megaAVR` boards using Arduino core
 
-  - UNO WiFi Rev2   : WiFi101      **New**
-  - Nano Every      : WiFiEspAT    **New**
+  - UNO WiFi Rev2   : `WiFi101`      **New**
+  - Nano Every      : `WiFiEspAT`    **New**
   
 14. CO2 Ampel
 
-  - SAMD      : WiFi101      **New**
+  - SAMD      : `WiFi101`      **New**
 
 15. STM32 using `STM32duino Maple` core. **New**
 
 16. Sparkfun SAMD
 
-- SAMD21, SAMD51 : WiFiEspAT  **New**
+- SAMD21, SAMD51 : `WiFiEspAT`  **New**
 
 17. Industruino SAMD
 
@@ -139,11 +139,11 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
 
 18. Tlera Corp STM32WB boards
 
-  - Firefly-WB55RG, Nucleo-WB55RG, etc. : WiFiEspAT  **New**
+  - Firefly-WB55RG, Nucleo-WB55RG, etc. : `WiFiEspAT`  **New**
 
 19. Maixduino boards
 
-  - Sipeed Maixduino, etc. : WiFiEspAT  **New**
+  - Sipeed Maixduino, etc. : `WiFiEspAT`  **New**
 
 20. `RTL8720DN` using Realtek `AmebaD` core  **New**
 
@@ -2533,10 +2533,7 @@ Submit issues to: [WiFiMulti_Generic issues](https://github.com/khoih-prog/WiFiM
 ### TO DO
 
  1. Bug Searching and Killing
- 2. Add support to **Portenta_H7 boards**, using [**Arduino-mbed mbed_portenta** core](https://github.com/arduino/ArduinoCore-mbed)
- 3. Add support to [`WiFi101 library`](https://www.arduino.cc/en/Reference/WiFi101)
- 4. Add support to Arduino AVR boards, such as Arduino Mega, UNO, Nano, 32U4, 16U4, etc.
- 5. Add support to Arduino megaAVR boards, such as `Nano_Every`, `UNO_WIFI_REV2`
+ 2. Add support to **megaAVR** nboards using [`MegaCoreX megaAVR core`](https://github.com/MCUdude/MegaCoreX/releases)
 
 ### DONE
 
