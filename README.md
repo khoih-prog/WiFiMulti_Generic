@@ -2096,7 +2096,7 @@ WiFi lost. Trying to scan and reconnect
 
 #### 8. WiFiMulti on Arduino AVR Mega2560
 
-The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `ESP32S3_DEV`
+The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `Arduino AVR Mega2560`
 
 #### 8.1 First time => OK
 
@@ -2183,7 +2183,7 @@ H
 
 #### 9. WiFiMulti on RTL8720DN
 
-The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `ESP32S3_DEV`
+The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `RTL8720DN`
 
 #### 9.1 First time => OK
 
@@ -2398,7 +2398,7 @@ HHH
 
 #### 10. WiFiMulti on PORTENTA_H7_M7
 
-The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `ESP32S3_DEV`
+The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `PORTENTA_H7_M7`
 
 #### 10.1 First time => OK
 
