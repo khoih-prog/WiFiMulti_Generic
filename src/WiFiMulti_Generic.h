@@ -17,11 +17,12 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
   You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>
   
-  Version: 1.0.0
+  Version: 1.1.0
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      15/02/2020 Initial coding for ESP32, ESP8266, WiFiNINA and ESP_AT modules
+  1.1.0   K Hoang      16/02/2020 Add support to WiFi101 and many more boards (PortentaH7, megaAVR, Sparkfun SAMD, etc.)
  ***************************************************************************************************************************************/
 
 #pragma once
@@ -30,14 +31,25 @@
 #define _WIFIMULTI_GENERIC_H_
 
 #ifndef WIFIMULTI_GENERIC_VERSION
-  #define WIFIMULTI_GENERIC_VERSION          "WiFiMulti_Generic v1.0.0"
+  #define WIFIMULTI_GENERIC_VERSION          "WiFiMulti_Generic v1.1.0"
 
   #define WIFIMULTI_GENERIC_VERSION_MAJOR    1
-  #define WIFIMULTI_GENERIC_VERSION_MINOR    0
+  #define WIFIMULTI_GENERIC_VERSION_MINOR    1
   #define WIFIMULTI_GENERIC_VERSION_PATCH    0
 
-  #define WIFIMULTI_GENERIC_VERSION_INT      1000000
+  #define WIFIMULTI_GENERIC_VERSION_INT      1001000
 #endif
+
+#if defined(ARDUINO)
+  #if ARDUINO >= 100
+    #include <Arduino.h>
+  #else
+    #include <WProgram.h>
+  #endif
+#endif
+
+#undef max
+#undef min
 
 #if !defined(BOARD_NAME)
   #if defined(ARDUINO_BOARD)
@@ -118,6 +130,23 @@
   #warning Use RP2040 architecture from WiFiMulti_Generic
 #endif
 
+/////////////////////////////////////////////////////////////////
+
+// To suppress warning from some cores, such as AmebaD
+#if !defined(USE_WIFI_ESP_AT)
+  #define USE_WIFI_ESP_AT       false
+#endif
+
+#if !defined(WIFI_USING_ESP_AT)
+  #define WIFI_USING_ESP_AT       false
+#endif
+
+#if !defined(USE_WIFI_PORTENTA_H7)
+  #define USE_WIFI_PORTENTA_H7       false
+#endif
+
+/////////////////////////////////////////////////////////////////
+
 #if USE_WIFI_NINA
   #include <WiFiNINA_Generic.h>
   //#include <WiFiNINA.h>
@@ -133,9 +162,12 @@
     #include <WiFiEspAT.h>
     #warning Use WiFiEspAT Library for WiFiMulti_Generic
   #endif
-#elif USE_WIFI_PORTENTA_H7
+#elif defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
   #include <WiFi.h>
   #warning Use PORTENTA_H7 WiFi from WiFiMulti_Generic
+#elif defined(CONFIG_PLATFORM_8721D)
+  #include <WiFi.h>
+  #warning Use RTL8720 WiFi from WiFiMulti_Generic
 #else
   #if (ESP32)
     #include "WiFi.h"
@@ -157,10 +189,10 @@
   #endif
 #endif  
 
-#if (ESP32)
+#if defined(ESP32)
   #include "ESP32/WiFiMulti_Generic.hpp"
   #include "ESP32/WiFiMulti_Generic_Impl.h"
-#elif (ESP8266)
+#elif defined(ESP8266)
   #include "ESP8266WiFi.h"
   #include "ESP8266/ESP8266WiFiMulti.hpp"
   #include "ESP8266/ESP8266WiFiMulti_Impl.h"
@@ -168,16 +200,17 @@
   #include "WiFiNINA/NINA_WiFiMulti_Generic.hpp"
   #include "WiFiNINA/NINA_WiFiMulti_Generic_Impl.h"
 #elif (USE_WIFI101)
-  #error USE_WIFI101 not ready yet
-  #include "WiFi101/WiFiMulti_Generic.hpp"
-  #include "WiFi101/WiFiMulti_Generic_Impl.h" 
+  #include "WiFi101/WiFi101_WiFiMulti_Generic.hpp"
+  #include "WiFi101/WiFi101_WiFiMulti_Generic_Impl.h" 
 #elif (USE_WIFI_ESP_AT || WIFI_USING_ESP_AT)
   #include "ESP_AT/ESP_AT_WiFiMulti_Generic.hpp"
   #include "ESP_AT/ESP_AT_WiFiMulti_Generic_Impl.h" 
-#elif USE_WIFI_PORTENTA_H7
-  #error USE_WIFI_PORTENTA_H7 not ready yet
+#elif defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
   #include "PortentaH7/PortentaH7_WiFiMulti_Generic.hpp"
   #include "PortentaH7/PortentaH7_WiFiMulti_Generic_Impl.h" 
+#elif defined(CONFIG_PLATFORM_8721D)
+  #include "RTL8720/RTL8720_WiFiMulti_Generic.hpp"
+  #include "RTL8720/RTL8720_WiFiMulti_Generic_Impl.h"
 #else
   #error Must specify WiFi type  
 #endif

@@ -1,5 +1,5 @@
 /**************************************************************************************************************************************
-  WiFiMulti_Generic.hpp
+  WiFi101_WiFiMulti_Generic.hpp
   For any WiFi shields, such as ESP32, ESP8266, Portenta_H7, WiFiNINA W101, W102, W13x, or custom, such as ESP8266/ESP32-AT, etc
   
   WiFiMulti_Generic is a library to adapt the  ESP32/ESP8266 WiFiMulti feature to other WiFi modules
@@ -22,7 +22,7 @@
   @date 16.05.2015
   @author Markus Sattler
   Copyright (c) 2015 Markus Sattler. All rights reserved.
-  This file is part of the esp32 core for Arduino environment.
+  This file is part of the esp8266 core for Arduino environment.
   
   Version: 1.1.0
   
@@ -34,10 +34,16 @@
  
 #pragma once
 
-#ifndef _WIFIMULTI_GENERIC_HPP_
-#define _WIFIMULTI_GENERIC_HPP_
+#ifndef _WIFI101_WIFIMULTI_GENERIC_HPP_
+#define _WIFI101_WIFIMULTI_GENERIC_HPP_
 
-#include <vector>
+#if ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )
+  #warning Requiring ArduinoSTL library. Not using <vector>
+  #include "ArduinoSTL.h"       // https://github.com/mike-matera/ArduinoSTL
+#else
+  #warning Not requiring ArduinoSTL library. using <vector>
+  #include <vector>
+#endif  
 
 #include "WiFiMulti_Generic_Debug.h"
 
@@ -60,4 +66,4 @@ class WiFiMulti_Generic
   private:
     std::vector<WifiAPlist_t> APlist;
 };
-#endif /* _WIFIMULTI_GENERIC_HPP_ */
+#endif /* _WIFI101_WIFIMULTI_GENERIC_HPP_ */

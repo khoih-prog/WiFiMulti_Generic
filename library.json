@@ -39,7 +39,13 @@
       "name": "WiFiEspAT",
       "version": ">=1.3.2",
       "platforms": ["*"]
-    }
+    },
+    {
+      "owner": "mike-matera",
+      "name": "ArduinoSTL",
+      "version": ">=1.3.3",
+      "platforms": ["avr", "megaavr"]
+    },
   ],
   "license": "LGPL-3.0",
   "frameworks": "*",

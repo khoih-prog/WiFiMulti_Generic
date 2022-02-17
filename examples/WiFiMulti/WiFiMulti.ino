@@ -22,6 +22,138 @@
 
 WiFiMulti_Generic wifiMulti;
 
+void heartBeatPrint()
+{
+  static int num = 1;
+
+  //WFM_LOGDEBUG1("\nWiFi connected, RSSI:", WiFi.RSSI());
+
+  if (WiFi.status() == WL_CONNECTED)
+    Serial.print(F("H"));        // H means connected to WiFi
+  else
+    Serial.print(F("F"));        // F means not connected to WiFi
+
+  if (num == 80)
+  {
+    Serial.println();
+    num = 1;
+  }
+  else if (num++ % 10 == 0)
+  {
+    Serial.print(F(" "));
+  } 
+}
+
+uint8_t connectMultiWiFi()
+{
+#if defined(ESP32)
+  // For ESP32, this better be 0 to shorten the connect time.
+  // For ESP32-S2/C3, must be > 500
+  #if ( USING_ESP32_S2 || USING_ESP32_C3 )
+    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           500L
+  #else
+    // For ESP32 core v1.0.6, must be >= 500
+    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           800L
+  #endif
+#elif (defined(ESP8266))
+  // For ESP8266, this better be 2200 to enable connect the 1st time
+  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             2200L
+#else
+  // For general board, this better be 1000 to enable connect the 1st time
+  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             1000L
+#endif
+
+#define WIFI_MULTI_CONNECT_WAITING_MS                   500L
+
+  Serial.println("WiFi lost. Trying to scan and reconnect");
+
+  WiFi.disconnect();
+
+  int i = 0;
+
+  uint8_t status = wifiMulti.run();
+
+  delay(WIFI_MULTI_1ST_CONNECT_WAITING_MS);
+
+  while ( ( i++ < 20 ) && ( status != WL_CONNECTED ) )
+  {
+    status = WiFi.status();
+
+    if ( status == WL_CONNECTED )
+      break;
+    else
+      delay(WIFI_MULTI_CONNECT_WAITING_MS);
+  }
+
+  if ( status == WL_CONNECTED )
+  {
+    WFM_LOGERROR1(F("WiFi connected after time: "), i);
+    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(",RSSI="), WiFi.RSSI());
+
+#if (defined(ESP32) || defined(ESP8266))
+    WFM_LOGERROR3(F("Channel:"), WiFi.channel(), F(",IP address:"), WiFi.localIP() );
+#else
+    WFM_LOGERROR1(F("IP address:"), WiFi.localIP() );
+#endif
+  }
+  else
+  {
+    WFM_LOGERROR(F("WiFi not connected"));
+
+    if (wifiMulti.run() != WL_CONNECTED)
+    {
+      Serial.println("WiFi not connected!");
+      delay(1000);
+    }
+  }
+
+  return status;
+}
+
+void check_WiFi()
+{
+#if ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
+  // Workaround for bug in https://github.com/arduino/ArduinoCore-mbed/issues/381
+  if ( (WiFi.status() != WL_CONNECTED) || (WiFi.RSSI() == 0) )
+#else
+  if ( (WiFi.status() != WL_CONNECTED) )
+#endif
+  {
+    Serial.println(F("\nWiFi lost. Call connectMultiWiFi in loop"));
+    connectMultiWiFi();
+  }
+}
+
+void check_status()
+{
+  static uint32_t checkstatus_timeout  = 0;
+  static uint32_t checkwifi_timeout    = 0;
+
+  static uint32_t current_millis;
+
+#define WIFICHECK_INTERVAL    1000L
+#define HEARTBEAT_INTERVAL    10000L
+
+  current_millis = millis();
+
+  // Check WiFi every WIFICHECK_INTERVAL (1) seconds.
+  if ((current_millis > checkwifi_timeout) || (checkwifi_timeout == 0))
+  {
+    check_WiFi();
+    checkwifi_timeout = current_millis + WIFICHECK_INTERVAL;
+  }
+
+  // Print hearbeat every HEARTBEAT_INTERVAL (10) seconds.
+  if ((current_millis > checkstatus_timeout) || (checkstatus_timeout == 0))
+  {
+    heartBeatPrint();
+    checkstatus_timeout = current_millis + HEARTBEAT_INTERVAL;
+  }
+
+  // Important delay() for RTL8720DN
+  delay(200);
+}
+
 void setup()
 {
   Serial.begin(115200);
@@ -55,74 +187,7 @@ void setup()
   }
 }
 
-uint8_t connectMultiWiFi()
-{
-#if ESP32
-  // For ESP32, this better be 0 to shorten the connect time.
-  // For ESP32-S2/C3, must be > 500
-  #if ( USING_ESP32_S2 || USING_ESP32_C3 )
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           500L
-  #else
-    // For ESP32 core v1.0.6, must be >= 500
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           800L
-  #endif
-#elif (ESP8266)
-  // For ESP8266, this better be 2200 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             2200L
-#else
-  // For general board, this better be 1000 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             1000L
-#endif
-
-#define WIFI_MULTI_CONNECT_WAITING_MS                   500L
-
-  Serial.println("WiFi lost. Trying to scan and reconnect");
-
-  int i = 0;
-
-  uint8_t status = wifiMulti.run();
-
-  delay(WIFI_MULTI_1ST_CONNECT_WAITING_MS);
-
-  while ( ( i++ < 20 ) && ( status != WL_CONNECTED ) )
-  {
-    status = WiFi.status();
-
-    if ( status == WL_CONNECTED )
-      break;
-    else
-      delay(WIFI_MULTI_CONNECT_WAITING_MS);
-  }
-
-  if ( status == WL_CONNECTED )
-  {
-    WFM_LOGERROR1(F("WiFi connected after time: "), i);
-    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(",RSSI="), WiFi.RSSI());
-
-#if (ESP32 || ESP8266)
-    WFM_LOGERROR3(F("Channel:"), WiFi.channel(), F(",IP address:"), WiFi.localIP() );
-#else
-    WFM_LOGERROR1(F("IP address:"), WiFi.localIP() );
-#endif
-  }
-  else
-  {
-    WFM_LOGERROR(F("WiFi not connected"));
-
-    if (wifiMulti.run() != WL_CONNECTED)
-    {
-      Serial.println("WiFi not connected!");
-      delay(1000);
-    }
-  }
-
-  return status;
-}
-
 void loop()
 {
-  if ( (WiFi.status() != WL_CONNECTED) )
-  {
-    connectMultiWiFi();
-  }
+  check_status();
 }

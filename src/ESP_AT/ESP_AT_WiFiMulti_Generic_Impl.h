@@ -24,11 +24,12 @@
   Copyright (c) 2015 Markus Sattler. All rights reserved.
   This file is part of the esp8266 core for Arduino environment.
   
-  Version: 1.0.0
+  Version: 1.1.0
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      15/02/2020 Initial coding for ESP32, ESP8266, WiFiNINA and ESP_AT modules
+  1.1.0   K Hoang      16/02/2020 Add support to WiFi101 and many more boards (PortentaH7, megaAVR, Sparkfun SAMD, etc.)
  ***************************************************************************************************************************************/
  
 #pragma once
@@ -146,7 +147,7 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
     WifiAPlist_t bestNetwork { NULL, NULL };
     
     int bestNetworkDb = INT_MIN;
-    uint8_t bestBSSID[6];
+    uint8_t bestBSSID[6] = { 0 };
     int32_t bestChannel = 0;
 
     WFM_LOGINFO("[run] Scan done");

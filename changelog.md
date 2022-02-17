@@ -12,12 +12,32 @@
 
 
 * [Changelog](#changelog)
+  * [Releases v1.1.0](#releases-v110)
   * [Releases v1.0.0](#releases-v100)
 
 ---
 ---
 
 ## Changelog
+
+#### Releases v1.1.0
+
+1. Add support to 
+
+  - **Portenta_H7 using Murata WiFi**
+  - **RTL8720DN using built-in 2.4GHz or 5GHz WiFi** with Realtek `AmebaD` core
+  - Arduino SAMD using `WiFi101` (MKR1000, MKR1010, etc.)
+  - Seeed XIAO RP2020, SAMD using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - Arduino megaAVR boards with Arduino core (UNO WiFi Rev2 using `WiFi101`, Nano Every using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`)
+  - CO2 Ampel SAMD board using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - STM32 boards with `STM32duino Maple` core using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - Sparkfun SAMD board using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - Industruino SAMD using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - Tlera Corp STM32WB boards (Firefly-WB55RG, Nucleo-WB55RG, etc.) using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - Maixduino boards using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+  - Arduino, Sparkfun, Adafruit, etc. AVR boards (Mega, 32U4, etc.). To use `LibraryPatches` for `ArduinoSTL` library
+
+2. Update example [WiFiMulti](examples/WiFiMulti) to handle more complex cases.
 
 
 #### Releases v1.0.0

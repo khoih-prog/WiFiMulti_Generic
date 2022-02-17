@@ -38,6 +38,8 @@
     * [8.1. To use BOARD_NAME](#81-to-use-board_name)
     * [8.2. To avoid compile error relating to microsecondsToClockCycles](#82-to-avoid-compile-error-relating-to-microsecondstoclockcycles)
   * [9. For Portenta_H7 boards using Arduino IDE in Linux](#9-for-portenta_h7-boards-using-arduino-ide-in-linux)
+* [Libraries' Patches](#libraries-patches)
+   * [1. ArduinoSTL for AVR boards](#1-ArduinoSTL-for-AVR-boards)
 * [Examples](#examples)
   * [ 1. WiFiMulti](examples/WiFiMulti)
 * [Example WiFiMulti](#example-WiFiMulti)
@@ -51,6 +53,9 @@
   * [ 5. WiFiMulti on ESP8266_NODEMCU_ESP12E](#5-WiFiMulti-on-ESP8266_NODEMCU_ESP12E)
   * [ 6. WiFiMulti on ESP32C3_DEV](#6-WiFiMulti-on-ESP32C3_DEV)
   * [ 7. WiFiMulti on ESP32S3_DEV](#7-WiFiMulti-on-ESP32S3_DEV)
+  * [ 8. WiFiMulti on Arduino AVR Mega2560](#8-WiFiMulti-on-Arduino-AVR-Mega2560)
+  * [ 9. WiFiMulti on RTL8720DN](#9-WiFiMulti-on-RTL8720DN)
+  * [10. WiFiMulti on PORTENTA_H7_M7](#10-WiFiMulti-on-PORTENTA_H7_M7)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
 * [Issues](#issues)
@@ -91,34 +96,79 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
   - Seeeduino: Wio Terminal, Grove UI Wireless
   
  4. Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0, LC)
- 5. All STM32F/L/H/G/WB/MP1 with more than 32KB flash memory.
- 6. AVR Mega1280, 2560, ADK. **Not yet**
+ 
+ 5. All STM32F/L/H/G/WB/MP1 with more than 32KB flash memory using stm32duino `Arduino_Core_STM32`
+ 
+ 6. AVR Mega1280, 2560, ADK, 32U4, 16U4, etc. using Arduino, Adafruit or Sparkfun core. To use patch for `ArduinoSTL` library. **New**
 
- 7. RP2040-based boards, such as **Nano RP2040 Connect**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
+ 7. RP2040-based boards, such as **Nano RP2040 Connect**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico)
+ 
  8. RP2040-based boards, such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
 
  9. **ESP32**
  
   - ESP32 boards, such as `ESP32_DEV`, etc.
   - ESP32S2-based boards, such as `ESP32S2_DEV`, `ESP32_S2 Saola`, etc.
-  - ESP32C3-based boards, such as `ESP32C3_DEV`, etc. **New**
-  - ESP32_S3 (ESP32S3_DEV, ESP32_S3_BOX, UM TINYS3, UM PROS3, UM FEATHERS3, etc.) **New**
+  - ESP32C3-based boards, such as `ESP32C3_DEV`, etc.
+  - ESP32_S3 (ESP32S3_DEV, ESP32_S3_BOX, UM TINYS3, UM PROS3, UM FEATHERS3, etc.)
   
 10. **ESP8266**
 
-11. **Portenta_H7** **Not yet**
+11. **Portenta_H7**  **New**
+
+12. **nRF52 boards**, such as **AdaFruit Feather nRF52832, nRF52840 Express, BlueFruit Sense, Itsy-Bitsy nRF52840 Express, Metro nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc.**
+
+13. Arduino `megaAVR` boards using Arduino core
+
+  - UNO WiFi Rev2   : WiFi101      **New**
+  - Nano Every      : WiFiEspAT    **New**
+  
+14. CO2 Ampel
+
+  - SAMD      : WiFi101      **New**
+
+15. STM32 using `STM32duino Maple` core. **New**
+
+16. Sparkfun SAMD
+
+- SAMD21, SAMD51 : WiFiEspAT  **New**
+
+17. Industruino SAMD
+
+  - D21G : WiFiEspAT  **New**
+
+18. Tlera Corp STM32WB boards
+
+  - Firefly-WB55RG, Nucleo-WB55RG, etc. : WiFiEspAT  **New**
+
+19. Maixduino boards
+
+  - Sipeed Maixduino, etc. : WiFiEspAT  **New**
+
+20. `RTL8720DN` using Realtek `AmebaD` core  **New**
+
+21. Arduino, Sparkfun, Adafruit, etc. AVR boards (Mega, 32U4, etc.). To use patch for `ArduinoSTL` library **New**
+
+  - Arduino Uno / Mega / Duemilanove / Diecimila / LilyPad / Mini / Fio / Nano, etc.
+  - **Arduino ATMega 16U4, 32U4** such as AVR Leonardo, Leonardo ETH, YUN, Esplora, LILYPAD_USB, AVR_ROBOT_CONTROL, AVR_ROBOT_MOTOR, AVR_INDUSTRIAL101, etc.
+  - **Adafruit ATMega 32U4** such as AVR_FLORA8, AVR_FEATHER32U4, AVR_CIRCUITPLAY, AVR_ITSYBITSY32U4_5V, AVR_ITSYBITSY32U4_3V, AVR_BLUEFRUITMICRO, AVR_ADAFRUIT32U4, etc.
+  - **Adafruit ATMega 328(P)** such as AVR_METRO, AVR_FEATHER328P, AVR_PROTRINKET5, AVR_PROTRINKET3, AVR_PROTRINKET5FTDI, AVR_PROTRINKET3FTDI, etc.
+  - **Generic or Sparkfun AVR ATmega_32U4** such as **AVR_MAKEYMAKEY, AVR_PROMICRO, etc.**
+  - **Generic or Sparkfun AVR ATmega_328(P)** such as **ARDUINO_REDBOT, ARDUINO_AVR_DIGITAL_SANDBOX, etc.**
+  - **Generic or Sparkfun AVR ATmega128RFA1** such as **ATMEGA128RFA1_DEV_BOARD, etc.**
+
 
 ---
 
 #### Currently supported WiFi shields/modules
 
 1. WiFiNINA using [`WiFiNINA_Generic library`](https://github.com/khoih-prog/WiFiNINA_Generic)
-2. WiFi101 using [`WiFi101 library`](https://github.com/arduino-libraries/WiFi101)  **Not yet**
+2. WiFi101 using [`WiFi101 library`](https://github.com/arduino-libraries/WiFi101)  **New**
 3. u-blox W101, W102 using [`WiFiNINA_Generic library`](https://github.com/khoih-prog/WiFiNINA_Generic)
 4. ESP8266-AT command using [`WiFiEspAT library`](https://github.com/jandrassy/WiFiEspAT)
 5. ESP8266/ESP32-AT command using [`ESP_AT_Lib library`](https://github.com/khoih-prog/ESP_AT_Lib)
 6. Built-in WiFi of ESP32, ESP8266
-7. Built-in WiFi of Portenta_H7   **Not yet**
+7. Built-in WiFi of Portenta_H7 **New**
 
 ---
 ---
@@ -128,20 +178,28 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
  1. [`Arduino IDE 1.8.19+` for Arduino](https://github.com/arduino/Arduino). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
  2. [`ESP32 Core 2.0.2+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
  3. [`ESP8266 Core 3.0.2+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/).
- 4. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) for AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest) **Not yet**
- 5. [`Teensy core v1.56+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards.
- 6. [`Arduino SAM DUE core v1.6.12+`](https://github.com/arduino/ArduinoCore-sam) for SAM DUE ARM Cortex-M3 boards.
- 7. [`Arduino SAMD core 1.8.12+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
- 8. [`Adafruit SAMD core 1.7.9+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
- 9. [`Seeeduino SAMD core 1.8.2+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
-10. [`Adafruit nRF52 v1.3.0+`](https://github.com/adafruit/Adafruit_nRF52_Arduino) for nRF52 boards such as Adafruit NRF52840_FEATHER, NRF52832_FEATHER, NRF52840_FEATHER_SENSE, NRF52840_ITSYBITSY, NRF52840_CIRCUITPLAY, NRF52840_CLUE, NRF52840_METRO, NRF52840_PCA10056, PARTICLE_XENON, **NINA_B302_ublox**, etc. [![GitHub release](https://img.shields.io/github/release/adafruit/Adafruit_nRF52_Arduino.svg)](https://github.com/adafruit/Adafruit_nRF52_Arduino/releases/latest)
-11. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
-12. [`Earle Philhower's arduino-pico core v1.12.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
-13. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core 2.7.2+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+ 4. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) for AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest) **New**
+ 5. [`Adafruit AVR core 1.4.14+`](https://github.com/adafruit/Adafruit_Arduino_Boards) for Adafruit AVR boards. Use Arduino Board Manager to install. **New**
+ 6. [`Sparkfun AVR core 1.1.13+`](https://github.com/sparkfun/Arduino_Boards) for Sparkfun AVR boards. Use Arduino Board Manager to install. **New**
+ 7. [`Teensy core v1.56+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards.
+ 8. [`Arduino SAM DUE core v1.6.12+`](https://github.com/arduino/ArduinoCore-sam) for SAM DUE ARM Cortex-M3 boards.
+ 9. [`Arduino SAMD core 1.8.12+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
+10. [`Adafruit SAMD core 1.7.9+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
+11. [`Seeeduino SAMD core 1.8.2+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
+12. [`Adafruit nRF52 v1.3.0+`](https://github.com/adafruit/Adafruit_nRF52_Arduino) for nRF52 boards such as Adafruit NRF52840_FEATHER, NRF52832_FEATHER, NRF52840_FEATHER_SENSE, NRF52840_ITSYBITSY, NRF52840_CIRCUITPLAY, NRF52840_CLUE, NRF52840_METRO, NRF52840_PCA10056, PARTICLE_XENON, **NINA_B302_ublox**, etc. [![GitHub release](https://img.shields.io/github/release/adafruit/Adafruit_nRF52_Arduino.svg)](https://github.com/adafruit/Adafruit_nRF52_Arduino/releases/latest)
+13. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
+14. [`Earle Philhower's arduino-pico core v1.12.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+15. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core 2.7.2+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+16. [`Arduino megaAVR core 1.8.7+`](https://github.com/arduino/ArduinoCore-megaavr/releases) for Arduino megaAVR boards such as **Arduino UNO WiFi Rev2, AVR_NANO_EVERY, etc.**
+17. [`STM32 Arduino_STM32 core 1.0.0+`](https://github.com/rogerclarkmelbourne/Arduino_STM32) for STM32F boards.  [![GitHub release](https://img.shields.io/github/release/rogerclarkmelbourne/Arduino_STM32.svg)](https://github.com/rogerclarkmelbourne/Arduino_STM32/releases/latest). **New**
+18. [`MegaCoreX megaAVR core 1.0.9+`](https://github.com/MCUdude/MegaCoreX/releases) for Arduino megaAVR boards.  [![GitHub release](https://img.shields.io/github/release/MCUdude/MegaCoreX.svg)](https://github.com/MCUdude/MegaCoreX/releases/latest). Follow [**How to install**](https://github.com/MCUdude/MegaCoreX#how-to-install). **Not yet**
 
-14. [`WiFiNINA_Generic library v1.8.14-3+`](https://github.com/khoih-prog/WiFiNINA_Generic) if using WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
-15. [`Modified WiFi101 Library v0.16.1+`](https://github.com/khoih-prog/WiFi101) to use SAMD MKR1000, etc. boards with WiFi101. **Not yet**
-16. [`WiFiEspAT library v1.3.2+`](https://github.com/jandrassy/WiFiEspAT) if using ESP8288/ESP32-AT shields. [![GitHub release](https://img.shields.io/github/release/jandrassy/WiFiEspAT.svg)](https://github.com/jandrassy/WiFiEspAT/releases/latest)
+
+19. [`WiFiNINA_Generic library v1.8.14-3+`](https://github.com/khoih-prog/WiFiNINA_Generic) if using WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
+20. [`Modified WiFi101 Library v0.16.1+`](https://github.com/khoih-prog/WiFi101) to use SAMD MKR1000, etc. boards with WiFi101.
+21. [`WiFiEspAT library v1.3.2+`](https://github.com/jandrassy/WiFiEspAT) if using ESP8288/ESP32-AT shields. [![GitHub release](https://img.shields.io/github/release/jandrassy/WiFiEspAT.svg)](https://github.com/jandrassy/WiFiEspAT/releases/latest)
+22. [`ArduinoSTL library v1.3.3+`](https://github.com/mike-matera/ArduinoSTL) if using AVR boards. [![GitHub release](https://img.shields.io/github/release/mike-matera/ArduinoSTL.svg)](https://github.com/mike-matera/ArduinoSTL/releases/latest)
+
 
 ---
 ---
@@ -416,6 +474,20 @@ This file must be copied into the directory:
 ---
 ---
 
+### Libraries' Patches
+
+#### 1. ArduinoSTL for AVR boards
+
+To fix compile error for AVR boards, the `Libraries' Patches` for  [`ArduinoSTL library`](https://github.com/mike-matera/ArduinoSTL) must be used.
+
+Just copy the following file into the [`ArduinoSTL library`](https://github.com/mike-matera/ArduinoSTL) directory to overwrite the old files:
+
+- [new_handler.cpp](LibraryPatches/ArduinoSTL/src/new_handler.cpp)
+
+
+---
+---
+
 ### Examples:
 
  1. [WiFiMulti](examples/WiFiMulti)
@@ -432,6 +504,138 @@ This file must be copied into the directory:
 #include "defines.h"
 
 WiFiMulti_Generic wifiMulti;
+
+void heartBeatPrint()
+{
+  static int num = 1;
+
+  //WFM_LOGDEBUG1("\nWiFi connected, RSSI:", WiFi.RSSI());
+
+  if (WiFi.status() == WL_CONNECTED)
+    Serial.print(F("H"));        // H means connected to WiFi
+  else
+    Serial.print(F("F"));        // F means not connected to WiFi
+
+  if (num == 80)
+  {
+    Serial.println();
+    num = 1;
+  }
+  else if (num++ % 10 == 0)
+  {
+    Serial.print(F(" "));
+  } 
+}
+
+uint8_t connectMultiWiFi()
+{
+#if defined(ESP32)
+  // For ESP32, this better be 0 to shorten the connect time.
+  // For ESP32-S2/C3, must be > 500
+  #if ( USING_ESP32_S2 || USING_ESP32_C3 )
+    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           500L
+  #else
+    // For ESP32 core v1.0.6, must be >= 500
+    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           800L
+  #endif
+#elif (defined(ESP8266))
+  // For ESP8266, this better be 2200 to enable connect the 1st time
+  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             2200L
+#else
+  // For general board, this better be 1000 to enable connect the 1st time
+  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             1000L
+#endif
+
+#define WIFI_MULTI_CONNECT_WAITING_MS                   500L
+
+  Serial.println("WiFi lost. Trying to scan and reconnect");
+
+  WiFi.disconnect();
+
+  int i = 0;
+
+  uint8_t status = wifiMulti.run();
+
+  delay(WIFI_MULTI_1ST_CONNECT_WAITING_MS);
+
+  while ( ( i++ < 20 ) && ( status != WL_CONNECTED ) )
+  {
+    status = WiFi.status();
+
+    if ( status == WL_CONNECTED )
+      break;
+    else
+      delay(WIFI_MULTI_CONNECT_WAITING_MS);
+  }
+
+  if ( status == WL_CONNECTED )
+  {
+    WFM_LOGERROR1(F("WiFi connected after time: "), i);
+    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(",RSSI="), WiFi.RSSI());
+
+#if (defined(ESP32) || defined(ESP8266))
+    WFM_LOGERROR3(F("Channel:"), WiFi.channel(), F(",IP address:"), WiFi.localIP() );
+#else
+    WFM_LOGERROR1(F("IP address:"), WiFi.localIP() );
+#endif
+  }
+  else
+  {
+    WFM_LOGERROR(F("WiFi not connected"));
+
+    if (wifiMulti.run() != WL_CONNECTED)
+    {
+      Serial.println("WiFi not connected!");
+      delay(1000);
+    }
+  }
+
+  return status;
+}
+
+void check_WiFi()
+{
+#if ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
+  // Workaround for bug in https://github.com/arduino/ArduinoCore-mbed/issues/381
+  if ( (WiFi.status() != WL_CONNECTED) || (WiFi.RSSI() == 0) )
+#else
+  if ( (WiFi.status() != WL_CONNECTED) )
+#endif
+  {
+    Serial.println(F("\nWiFi lost. Call connectMultiWiFi in loop"));
+    connectMultiWiFi();
+  }
+}
+
+void check_status()
+{
+  static uint32_t checkstatus_timeout  = 0;
+  static uint32_t checkwifi_timeout    = 0;
+
+  static uint32_t current_millis;
+
+#define WIFICHECK_INTERVAL    1000L
+#define HEARTBEAT_INTERVAL    10000L
+
+  current_millis = millis();
+
+  // Check WiFi every WIFICHECK_INTERVAL (1) seconds.
+  if ((current_millis > checkwifi_timeout) || (checkwifi_timeout == 0))
+  {
+    check_WiFi();
+    checkwifi_timeout = current_millis + WIFICHECK_INTERVAL;
+  }
+
+  // Print hearbeat every HEARTBEAT_INTERVAL (10) seconds.
+  if ((current_millis > checkstatus_timeout) || (checkstatus_timeout == 0))
+  {
+    heartBeatPrint();
+    checkstatus_timeout = current_millis + HEARTBEAT_INTERVAL;
+  }
+
+  // Important delay() for RTL8720DN
+  delay(200);
+}
 
 void setup()
 {
@@ -466,76 +670,9 @@ void setup()
   }
 }
 
-uint8_t connectMultiWiFi()
-{
-#if ESP32
-  // For ESP32, this better be 0 to shorten the connect time.
-  // For ESP32-S2/C3, must be > 500
-  #if ( USING_ESP32_S2 || USING_ESP32_C3 )
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           500L
-  #else
-    // For ESP32 core v1.0.6, must be >= 500
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           800L
-  #endif
-#elif (ESP8266)
-  // For ESP8266, this better be 2200 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             2200L
-#else
-  // For general board, this better be 1000 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             1000L
-#endif
-
-#define WIFI_MULTI_CONNECT_WAITING_MS                   500L
-
-  Serial.println("WiFi lost. Trying to scan and reconnect");
-
-  int i = 0;
-
-  uint8_t status = wifiMulti.run();
-
-  delay(WIFI_MULTI_1ST_CONNECT_WAITING_MS);
-
-  while ( ( i++ < 20 ) && ( status != WL_CONNECTED ) )
-  {
-    status = WiFi.status();
-
-    if ( status == WL_CONNECTED )
-      break;
-    else
-      delay(WIFI_MULTI_CONNECT_WAITING_MS);
-  }
-
-  if ( status == WL_CONNECTED )
-  {
-    WFM_LOGERROR1(F("WiFi connected after time: "), i);
-    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(",RSSI="), WiFi.RSSI());
-
-#if (ESP32 || ESP8266)
-    WFM_LOGERROR3(F("Channel:"), WiFi.channel(), F(",IP address:"), WiFi.localIP() );
-#else
-    WFM_LOGERROR1(F("IP address:"), WiFi.localIP() );
-#endif
-  }
-  else
-  {
-    WFM_LOGERROR(F("WiFi not connected"));
-
-    if (wifiMulti.run() != WL_CONNECTED)
-    {
-      Serial.println("WiFi not connected!");
-      delay(1000);
-    }
-  }
-
-  return status;
-}
-
 void loop()
 {
-  if ( (WiFi.status() != WL_CONNECTED) )
-  {
-    connectMultiWiFi();
-  }
+  check_status();
 }
 ```
 
@@ -574,17 +711,15 @@ void loop()
 
   // To use the default WiFi library here 
   #define USE_WIFI_CUSTOM       false
-
-  #error USE_WIFI_PORTENTA_H7 not ready yet
-  
-#elif (ESP32)
+ 
+#elif defined(ESP32)
 
   #define USE_WIFI_NINA         false
 
   // To use the default WiFi library here 
   #define USE_WIFI_CUSTOM       false
 
-#elif (ESP8266)
+#elif (defined(ESP8266))
 
   #define USE_WIFI_NINA         false
 
@@ -602,14 +737,38 @@ void loop()
   #define USE_WIFI_NINA         true
   #define USE_WIFI101           false
   #define USE_WIFI_CUSTOM       false
-
+ 
 #elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )
 
-  #error UNO_WIFI_REV2 and NANO_EVERY not supported yet
+  #if defined(ARDUINO_AVR_UNO_WIFI_REV2)
 
-#elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )
+    #define USE_WIFI_NINA         false
+    #define USE_WIFI101           true
+    #define USE_WIFI_CUSTOM       false
 
-  #error UNO_WIFI_REV2 and NANO_EVERY not supported yet  
+  #elif ( defined(__AVR_ATmega4809__) || defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) || \
+      defined(ARDUINO_AVR_ATmega4809) || defined(ARDUINO_AVR_ATmega4808) || defined(ARDUINO_AVR_ATmega3209) || \
+      defined(ARDUINO_AVR_ATmega3208) || defined(ARDUINO_AVR_ATmega1609) || defined(ARDUINO_AVR_ATmega1608) || \
+      defined(ARDUINO_AVR_ATmega809) || defined(ARDUINO_AVR_ATmega808) )
+      
+    #define USE_WIFI_NINA         false
+    #define USE_WIFI101           false
+    #define USE_WIFI_CUSTOM       true
+    
+  #else
+  
+    #define USE_WIFI_NINA         false
+    #define USE_WIFI101           false
+    #define USE_WIFI_CUSTOM       true
+    
+  #endif
+
+#elif defined(CONFIG_PLATFORM_8721D)
+
+  //#error Ameba Realtek RTL8720DN, RTL8722DM and RTM8722CSM not supported yet
+  #define USE_WIFI_NINA         false
+  #define USE_WIFI101           false
+  #define USE_WIFI_CUSTOM       true
   
 #else
 
@@ -624,13 +783,16 @@ void loop()
 #define WIFI_USING_ESP8266_AT_WEBSERVER         false
 
 #if (!USE_WIFI_NINA && USE_WIFI_CUSTOM)
-  #if (ESP8266)
+  #if (defined(ESP8266))
     #include "ESP8266WiFi.h"
   #elif WIFI_USING_ESP8266_AT_WEBSERVER
     #warning WIFI_USING_ESP8266_AT_WEBSERVER
     #error WIFI_USING_ESP8266_AT_WEBSERVER not ready yet
     #include "ESP8266_AT_WebServer.h"
     #define WIFI_USING_ESP_AT     true
+  #elif defined(CONFIG_PLATFORM_8721D)
+    #include "WiFi.h"
+    #define WIFI_USING_ESP_AT     false
   #else
     #warning WIFI_USING_WIFIESPAT
    //#include "WiFi_XYZ.h"
@@ -640,10 +802,14 @@ void loop()
 #endif
 
 #if WIFI_USING_ESP_AT
-  #define EspSerial       Serial1
+  #if defined(Serial1)
+    #define EspSerial       Serial1
+  #else
+    #define EspSerial       Serial
+  #endif
 #endif
 
-#if USE_WIFI_PORTENTA_H7
+#if defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
   #warning Using Portenta H7 WiFi
   #define SHIELD_TYPE           "Portenta_H7 WiFi"
 #elif USE_WIFI_NINA
@@ -651,11 +817,10 @@ void loop()
   #define SHIELD_TYPE           "WiFiNINA using WiFiNINA_Generic Library"
 #elif USE_WIFI101
   #warning Using WiFi101 using WiFi101 Library
-  #error USE_WIFI101 not ready yet
   #define SHIELD_TYPE           "WiFi101 using WiFi101 Library"
-#elif (ESP32 || ESP8266)
+#elif (defined(ESP32) || defined(ESP8266))
   #warning Using ESP WiFi with WiFi Library
-  #define SHIELD_TYPE           "ESP WiFi using WiFi Library"  
+  #define SHIELD_TYPE           "ESP WiFi using WiFi Library"
 #elif USE_WIFI_CUSTOM
   #warning Using Custom WiFi using Custom WiFi Library
   #define SHIELD_TYPE           "Custom WiFi using Custom WiFi Library"
@@ -709,6 +874,14 @@ void loop()
   #endif
   #define WIFI_USE_RP2040      true
   #warning Use RP2040 architecture from WiFiMulti_Generic
+#endif
+
+#if ( defined(ARDUINO_AVR_ADK) || defined(ARDUINO_AVR_MEGA) || defined(ARDUINO_AVR_MEGA2560) )
+  #if defined(WIFI_USE_AVR)
+    #undef WIFI_USE_AVR
+  #endif
+  #define WIFI_USE_AVR      true
+  #warning Use AVR Mega architecture from WiFiMulti_Generic
 #endif
 
 #ifdef CORE_TEENSY
@@ -867,6 +1040,11 @@ void loop()
   #endif
 
 #elif defined(WIFI_USE_STM32)
+
+  // For STM32
+  #warning EspSerial using SERIAL_PORT_HARDWARE, can be Serial or Serial1. See your board variant.h
+  #define EspSerial     SERIAL_PORT_HARDWARE    //Serial1
+  
   #if defined(STM32F0)
     #warning STM32F0 board selected
     #define BOARD_TYPE  "STM32F0"
@@ -883,11 +1061,30 @@ void loop()
     #warning STM32F4 board selected
     #define BOARD_TYPE  "STM32F4"
   #elif defined(STM32F7)
-    #warning STM32F7 board selected
-    #define BOARD_TYPE  "STM32F7"
+
+    #if defined(ARDUINO_NUCLEO_F767ZI)
+      #warning Nucleo-144 NUCLEO_F767ZI board selected, using HardwareSerial Serial1 @ pin D0/RX and D1/TX
+      // RX TX
+      HardwareSerial Serial1(D0, D1);
+    #else
+    
+      #warning STM32F7 board selected
+      #define BOARD_TYPE  "STM32F7"
+
+    #endif
+    
   #elif defined(STM32L0)
-    #warning STM32L0 board selected
-    #define BOARD_TYPE  "STM32L0"
+    #if defined(ARDUINO_NUCLEO_L053R8)
+      #warning Nucleo-64 NUCLEO_L053R8 board selected, using HardwareSerial Serial1 @ pin D0/RX and D1/TX
+      // RX TX
+      HardwareSerial Serial1(D0, D1);   // (PA3, PA2);
+    #else
+    
+      #warning STM32L0 board selected
+      #define BOARD_TYPE  "STM32L0"
+
+    #endif
+    
   #elif defined(STM32L1)
     #warning STM32L1 board selected
     #define BOARD_TYPE  "STM32L1"
@@ -914,6 +1111,13 @@ void loop()
     #define BOARD_TYPE  "STM32 Unknown"
   #endif
 
+#elif defined(BOARD_SIPEED_MAIX_DUINO)
+
+  #warning SIPEED_MAIX_DUINO board selected
+  #define BOARD_TYPE  "BOARD_SIPEED_MAIX_DUINO"
+
+  #define EspSerial       Serial1  
+
 #elif defined(ESP32)
 
   #warning ESP32 board selected
@@ -924,18 +1128,46 @@ void loop()
   #warning ESP8266 board selected
   #define BOARD_TYPE  "ESP8266"
 
-#elif WIFI_USE_RP2040
+#elif defined(WIFI_USE_RP2040) && WIFI_USE_RP2040
 
   #warning RP2040 board selected
 
-#elif WIFI_USE_SAM_DUE  
+#elif defined(WIFI_USE_SAM_DUE) && WIFI_USE_SAM_DUE 
 
   #warning SAM DUE board selected
-  
+
+#elif defined(CONFIG_PLATFORM_8721D)
+
+  #warning RTL8720DN board using AmebaD core selected
+  #define BOARD_TYPE  "RTL8720DN"
+
+#elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )  
+
+  #warning megaAVR board selected
+
+#elif ( defined(__AVR_ATmega4809__) || \
+      defined(ARDUINO_AVR_ATmega4809) || defined(ARDUINO_AVR_ATmega4808) || defined(ARDUINO_AVR_ATmega3209) || \
+      defined(ARDUINO_AVR_ATmega3208) || defined(ARDUINO_AVR_ATmega1609) || defined(ARDUINO_AVR_ATmega1608) || \
+      defined(ARDUINO_AVR_ATmega809) || defined(ARDUINO_AVR_ATmega808) ) 
+      
+  #error MegaCoreX megaAVR board not supported
+
+#elif (WIFI_USE_AVR)
+
+  #if defined(ARDUINO_AVR_MEGA2560)
+    #define BOARD_TYPE      "AVR Mega2560"
+  #elif defined(ARDUINO_AVR_MEGA) 
+    #define BOARD_TYPE      "AVR Mega"
+  #else
+    #define BOARD_TYPE      "AVR ADK"
+  #endif
+
+  // For Mega, use Serial1 or Serial3
+  #define EspSerial Serial3
+      
 #else
 
-  #error AVR Mega, UNO, Nano, etc.  not supported yet
-  #define BOARD_TYPE      "AVR Mega"
+  #warning Unknown or unsupported board
   
 #endif
 
@@ -970,7 +1202,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RASPBERRY_PI_PICO
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -1060,7 +1292,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RaspberryPi Pico
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -1151,7 +1383,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Nano RP2040 Connect
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1272,7 +1504,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on NANO_RP2040_CONNECT
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1394,7 +1626,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP8266_NODEMCU_ESP12E
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 [WFM] [APlistAdd] Add SSID: SSID = HueNet1
 [WFM] [APlistAdd] Add SSID: SSID = HueNet2
 Connecting WiFi...
@@ -1427,7 +1659,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32C3_DEV
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1638,7 +1870,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32S3_DEV
-WiFiMulti_Generic v1.0.0
+WiFiMulti_Generic v1.1.0
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1861,6 +2093,411 @@ WiFi lost. Trying to scan and reconnect
 ```
 
 ---
+
+#### 8. WiFiMulti on Arduino AVR Mega2560
+
+The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `ESP32S3_DEV`
+
+#### 8.1 First time => OK
+
+
+```
+Starting WiFiMulti on Arduino AVR Mega2560/ADK
+WiFiMulti_Generic v1.1.0
+WiFi shield init done
+[WFM] [addAP] add SSID: HueNet1
+[WFM] [addAP] add SSID: HueNet2
+Connecting WiFi...
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 6
+==============================================================
+[WFM] Unknown => # 0 , Channel: 1
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: HueNetTek , RSSI: -37 , Secured: y
+==============================================================
+[WFM] Unknown => # 1 , Channel: 10
+[WFM] 4D:AB:D3:E0:38:60
+[WFM] SSID: HueNet , RSSI: -37 , Secured: y
+==============================================================
+[WFM]   Known => # 2 , Channel: 4
+[WFM] A5:F4:94:74:7F:68
+[WFM] SSID: HueNet1 , RSSI: -39 , Secured: y
+==============================================================
+[WFM]   Known => # 3 , Channel: 4
+[WFM] E1:EB:E2:E0:38:60
+[WFM] SSID: HueNet2 , RSSI: -60 , Secured: y
+==============================================================
+[WFM] Unknown => # 4 , Channel: 3
+[WFM] EA:73:EC:D2:B4:F0
+[WFM] SSID: FishTank , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 5 , Channel: 1
+[WFM] A6:2:69:6D:2C:E8
+[WFM] SSID: SmartRG-02a2 , RSSI: -86 , Secured: y
+==============================================================
+[run] Connecting BSSID: [WFM] A5:F4:94:74:7F:68
+[WFM] SSID:  HueNet1 , Channel:  4 , Best dB:  -39
+[WFM] [run] Connecting done.
+[WFM] [run] SSID:  HueNet1 , IP:  192.168.2.80
+
+WiFi connected, IP address: 192.168.2.80
+HHHHHHH
+```
+
+
+#### 8.2 Lost WiFi => Scan and auto-reconnect
+
+```
+WiFi lost. Call connectMultiWiFi in loop
+WiFi lost. Trying to scan and reconnect
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 4
+==============================================================
+[WFM] Unknown => # 0 , Channel: 10
+[WFM] 4D:AB:D3:E0:38:60
+[WFM] SSID: HueNet , RSSI: -33 , Secured: y
+==============================================================
+[WFM] Unknown => # 1 , Channel: 1
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: HueNetTek , RSSI: -42 , Secured: y
+==============================================================
+[WFM]   Known => # 2 , Channel: 4
+[WFM] E1:EB:E2:E0:38:60
+[WFM] SSID: HueNet2 , RSSI: -63 , Secured: y
+==============================================================
+[WFM] Unknown => # 3 , Channel: 5
+[WFM] 8A:20:11:2A:C3:E4
+[WFM] SSID: DECO-5655 , RSSI: -92 , Secured: y
+==============================================================
+[run] Connecting BSSID: [WFM] E1:EB:E2:E0:38:60
+[WFM] SSID:  HueNet2 , Channel:  4 , Best dB:  -63
+[WFM] [run] Connecting done.
+[WFM] [run] SSID:  HueNet2 , IP:  192.168.2.80
+[WFM] WiFi connected after time:  1
+[WFM] SSID: HueNet2 ,RSSI= -64
+[WFM] IP address: 192.168.2.80
+H
+```
+
+---
+
+#### 9. WiFiMulti on RTL8720DN
+
+The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `ESP32S3_DEV`
+
+#### 9.1 First time => OK
+
+
+```
+Starting WiFiMulti on RTL8720DN
+WiFiMulti_Generic v1.1.0
+[WFM] [addAP] add SSID: HueNet1
+[WFM] [addAP] add SSID: HueNet2
+Connecting WiFi...
+interface 0 is initialized
+interface 1 is initialized
+Initializing WIFI ...
+WIFI initialized
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 24
+==============================================================
+[WFM] Unknown => # 0
+[WFM] SSID: HueNet_5G , RSSI: -21 , Secured: y
+==============================================================
+[WFM] Unknown => # 1
+[WFM] SSID: HueNet , RSSI: -27 , Secured: y
+==============================================================
+[WFM]   Known => # 2
+[WFM] SSID: HueNet1 , RSSI: -28 , Secured: y
+==============================================================
+[WFM] Unknown => # 3
+[WFM] SSID: HueNetTek_5G , RSSI: -33 , Secured: y
+==============================================================
+[WFM] Unknown => # 4
+[WFM] SSID: HueNetTek , RSSI: -44 , Secured: y
+==============================================================
+[WFM]   Known => # 5
+[WFM] SSID: HueNet2 , RSSI: -45 , Secured: y
+==============================================================
+[WFM] Unknown => # 6
+[WFM] SSID: HueNet2_5G , RSSI: -56 , Secured: y
+==============================================================
+[WFM] Unknown => # 7
+[WFM] SSID: El khoury , RSSI: -74 , Secured: y
+==============================================================
+[WFM] Unknown => # 8
+[WFM] SSID:  , RSSI: -75 , Secured: y
+==============================================================
+[WFM] Unknown => # 9
+[WFM] SSID:  , RSSI: -75 , Secured: y
+==============================================================
+[WFM] Unknown => # 10
+[WFM] SSID: Rogers 786 , RSSI: -82 , Secured: y
+==============================================================
+[WFM] Unknown => # 11
+[WFM] SSID:  , RSSI: -84 , Secured: y
+==============================================================
+[WFM] Unknown => # 12
+[WFM] SSID: El khoury , RSSI: -85 , Secured: y
+==============================================================
+[WFM] Unknown => # 13
+[WFM] SSID: Access , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 14
+[WFM] SSID: FishTank , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 15
+[WFM] SSID:  , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 16
+[WFM] SSID: ESP151CD5 , RSSI: -87 , Secured: y
+==============================================================
+[WFM] Unknown => # 17
+[WFM] SSID:  , RSSI: -87 , Secured: y
+==============================================================
+[WFM] Unknown => # 18
+[WFM] SSID: BELL042 , RSSI: -88 , Secured: y
+==============================================================
+[WFM] Unknown => # 19
+[WFM] SSID:  , RSSI: -88 , Secured: y
+==============================================================
+[WFM] Unknown => # 20
+[WFM] SSID: house , RSSI: -90 , Secured: y
+==============================================================
+[WFM] Unknown => # 21
+[WFM] SSID: WirelessMississauga , RSSI: -90 , Secured: n
+==============================================================
+[WFM] Unknown => # 22
+[WFM] SSID: JJ Realestate Investments , RSSI: -95 , Secured: y
+==============================================================
+[WFM] Unknown => # 23
+[WFM] SSID: TP-Link_59B6 , RSSI: -96 , Secured: y
+==============================================================
+[WFM] [run] Connecting SSID:  HueNet1 , Best dB:  -28
+RTL8721D[Driver]: set ssid [HueNet1] 
+RTL8721D[Driver]: rtw_set_wpa_ie[1160]: AuthKeyMgmt = 0x2 
+RTL8721D[Driver]: rtw_restruct_sec_ie[4225]: no pmksa cached 
+RTL8721D[Driver]: start auth to 68:7f:74:94:f4:a5
+RTL8721D[Driver]: auth alg = 2
+RTL8721D[Driver]: 
+OnAuthClient:algthm = 0, seq = 2, status = 0, sae_msg_len = 11
+RTL8721D[Driver]: auth success, start assoc
+RTL8721D[Driver]: association success(res=1)
+RTL8721D[Driver]: ClientSendEAPOL[1624]: no use cache pmksa 
+RTL8721D[Driver]: ClientSendEAPOL[1624]: no use cache pmksa 
+RTL8721D[Driver]: set pairwise key to hw: alg:4(WEP40-1 WEP104-5 TKIP-2 AES-4)
+RTL8721D[Driver]: set group key to hw: alg:2(WEP40-1 WEP104-5 TKIP-2 AES-4) keyid:1
+Interface 0 IP address : 192.168.2.78[WFM] [run] Connecting done.
+[WFM] [run] SSID:  HueNet1 , IP:  192.168.2.78
+WiFi connected, IP address: 192.168.2.78
+HHH
+```
+
+
+#### 9.2 Lost WiFi => Scan and auto-reconnect
+
+```
+RTL8721D[Driver]: no beacon for a long time, disconnect or roaming
+
+WiFi lost. Call connectMultiWiFi in loop
+WiFi lost. Trying to scan and reconnect
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 23
+==============================================================
+[WFM] Unknown => # 0
+[WFM] SSID: HueNet_5G , RSSI: -21 , Secured: y
+==============================================================
+[WFM] Unknown => # 1
+[WFM] SSID: HueNet , RSSI: -26 , Secured: y
+==============================================================
+[WFM] Unknown => # 2
+[WFM] SSID: HueNetTek_5G , RSSI: -31 , Secured: y
+==============================================================
+[WFM] Unknown => # 3
+[WFM] SSID: HueNetTek , RSSI: -35 , Secured: y
+==============================================================
+[WFM]   Known => # 4
+[WFM] SSID: HueNet2 , RSSI: -45 , Secured: y
+==============================================================
+[WFM] Unknown => # 5
+[WFM] SSID: HueNet2_5G , RSSI: -55 , Secured: y
+==============================================================
+[WFM] Unknown => # 6
+[WFM] SSID: SmartRG-02a2 , RSSI: -74 , Secured: y
+==============================================================
+[WFM] Unknown => # 7
+[WFM] SSID: Linksys00043 , RSSI: -76 , Secured: y
+==============================================================
+[WFM] Unknown => # 8
+[WFM] SSID:  , RSSI: -79 , Secured: y
+==============================================================
+[WFM] Unknown => # 9
+[WFM] SSID: ESP151CD5 , RSSI: -81 , Secured: y
+==============================================================
+[WFM] Unknown => # 10
+[WFM] SSID: FishTank , RSSI: -84 , Secured: y
+==============================================================
+[WFM] Unknown => # 11
+[WFM] SSID: Guest5655 , RSSI: -84 , Secured: y
+==============================================================
+[WFM] Unknown => # 12
+[WFM] SSID:  , RSSI: -84 , Secured: y
+==============================================================
+[WFM] Unknown => # 13
+[WFM] SSID: SmartRG-02a2-5G , RSSI: -85 , Secured: y
+==============================================================
+[WFM] Unknown => # 14
+[WFM] SSID:  , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 15
+[WFM] SSID: El khoury , RSSI: -87 , Secured: y
+==============================================================
+[WFM] Unknown => # 16
+[WFM] SSID:  , RSSI: -88 , Secured: y
+==============================================================
+[WFM] Unknown => # 17
+[WFM] SSID:  , RSSI: -88 , Secured: y
+==============================================================
+[WFM] Unknown => # 18
+[WFM] SSID:  , RSSI: -88 , Secured: y
+==============================================================
+[WFM] Unknown => # 19
+[WFM] SSID:  , RSSI: -90 , Secured: n
+==============================================================
+[WFM] Unknown => # 20
+[WFM] SSID:  , RSSI: -91 , Secured: y
+==============================================================
+[WFM] Unknown => # 21
+[WFM] SSID: JAC DM , RSSI: -95 , Secured: y
+==============================================================
+[WFM] Unknown => # 22
+[WFM] SSID: Home , RSSI: -99 , Secured: y
+==============================================================
+[WFM] [run] Connecting SSID:  HueNet2 , Best dB:  -45
+RTL8721D[Driver]: set ssid [HueNet2] 
+RTL8721D[Driver]: rtw_set_wpa_ie[1160]: AuthKeyMgmt = 0x2 
+RTL8721D[Driver]: rtw_restruct_sec_ie[4225]: no pmksa cached 
+RTL8721D[Driver]: start auth to 60:38:e0:e2:eb:e1
+RTL8721D[Driver]: auth alg = 2
+RTL8721D[Driver]: 
+OnAuthClient:algthm = 0, seq = 2, status = 0, sae_msg_len = 0
+RTL8721D[Driver]: auth success, start assoc
+RTL8721D[Driver]: association success(res=1)
+RTL8721D[Driver]: ClientSendEAPOL[1624]: no use cache pmksa 
+RTL8721D[Driver]: set pairwise key to hw: alg:4(WEP40-1 WEP104-5 TKIP-2 AES-4)
+RTL8721D[Driver]: set group key to hw: alg:4(WEP40-1 WEP104-5 TKIP-2 AES-4) keyid:1
+Interface 0 IP address : 192.168.2.78[WFM] [run] Connecting done.
+[WFM] [run] SSID:  HueNet2 , IP:  192.168.2.78
+[WFM] WiFi connected after time:  1
+[WFM] SSID: HueNet2 ,RSSI= -47
+[WFM] IP address: 192.168.2.78
+HHH
+```
+
+---
+
+#### 10. WiFiMulti on PORTENTA_H7_M7
+
+The following are debug terminal output when running example [WiFiMulti](examples/WiFiMulti) on `ESP32S3_DEV`
+
+#### 10.1 First time => OK
+
+
+```
+Starting WiFiMulti on PORTENTA_H7_M7
+WiFiMulti_Generic v1.1.0
+[WFM] [addAP] add SSID: HueNet1
+[WFM] [addAP] add SSID: HueNet2
+Connecting WiFi...
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 6
+==============================================================
+[WFM] Unknown => # 0
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: HueNetTek , RSSI: -32 , Secured: y
+==============================================================
+[WFM] Unknown => # 1
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: SmartRG-02a2 , RSSI: -77 , Secured: y
+==============================================================
+[WFM]   Known => # 2
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: HueNet1 , RSSI: -38 , Secured: y
+==============================================================
+[WFM] Unknown => # 3
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: Linksys00043 , RSSI: -77 , Secured: y
+==============================================================
+[WFM]   Known => # 4
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: HueNet2 , RSSI: -55 , Secured: y
+==============================================================
+[WFM] Unknown => # 5
+[WFM] F1:9:E3:66:90:3C
+[WFM] SSID: HueNet , RSSI: -33 , Secured: y
+==============================================================
+[run] Connecting BSSID: [WFM] F1:9:E3:66:90:3C
+[WFM] SSID:  HueNet1 , Best dB:  -38
+[WFM] [run] Connecting done.
+[WFM] [run] SSID:  HueNet1 , IP:  192.168.2.77
+
+WiFi connected, IP address: 192.168.2.77
+```
+
+
+#### 10.2 Lost WiFi => Scan and auto-reconnect
+
+```
+WiFi lost. Trying to scan and reconnect
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 9
+==============================================================
+[WFM]   Known => # 0
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: HueNet2 , RSSI: -54 , Secured: y
+==============================================================
+[WFM] Unknown => # 1
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: Guest5655 , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 2
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: DECO-5655 , RSSI: -86 , Secured: y
+==============================================================
+[WFM] Unknown => # 3
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: El khoury , RSSI: -84 , Secured: y
+==============================================================
+[WFM] Unknown => # 4
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID:  , RSSI: -82 , Secured: y
+==============================================================
+[WFM] Unknown => # 5
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID:  , RSSI: -83 , Secured: y
+==============================================================
+[WFM] Unknown => # 6
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: HueNet , RSSI: -42 , Secured: y
+==============================================================
+[WFM] Unknown => # 7
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: HueNetTek , RSSI: -37 , Secured: y
+==============================================================
+[WFM] Unknown => # 8
+[WFM] E6:D:11:2A:C3:E4
+[WFM] SSID: SmartRG-02a2 , RSSI: -76 , Secured: y
+==============================================================
+[run] Connecting BSSID: [WFM] E6:D:11:2A:C3:E4
+[WFM] SSID:  HueNet2 , Best dB:  -54
+[WFM] [run] Connecting done.
+[WFM] [run] SSID:  HueNet2 , IP:  192.168.2.77
+[WFM] WiFi connected after time:  1
+[WFM] SSID: HueNet2 ,RSSI= -53
+[WFM] IP address: 192.168.2.77
+```
+
+---
 ---
 
 ### Debug
@@ -1915,6 +2552,18 @@ Submit issues to: [WiFiMulti_Generic issues](https://github.com/khoih-prog/WiFiM
 10. Optimize library code and examples by using **reference-passing instead of value-passing**.
 11. Add support to ESP32-based boards including new **ESP32-S3** and **ESP32_C3**
 12. Add support to ESP8266-based boards
+13. Add support to **Portenta_H7 using Murata WiFi**
+14. Add support to **RTL8720DN using built-in 2.4GHz or 5GHz WiFi** with Realtek `AmebaD` core
+15. Add support to Arduino SAMD using `WiFi101` (MKR1000, MKR1010, etc.)
+16. Add support to Seeed XIAO RP2020, SAMD using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+17. Add support to Arduino megaAVR boards with Arduino core (UNO WiFi Rev2 using `WiFi101`, Nano Every using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`)
+18. Add support to CO2 Ampel SAMD board using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+19. Add support to STM32 boards with `STM32duino Maple` core using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+20. Add support to Sparkfun SAMD board using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+21. Add support to Industruino SAMD using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+22. Add support to Tlera Corp STM32WB boards (Firefly-WB55RG, Nucleo-WB55RG, etc.) using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+23. Add support to  Maixduino boards using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
+24. Add support to Arduino, Sparkfun, Adafruit, etc. AVR boards (Mega, 32U4, etc.). To use `LibraryPatches` for `ArduinoSTL` library
 
 ---
 ---

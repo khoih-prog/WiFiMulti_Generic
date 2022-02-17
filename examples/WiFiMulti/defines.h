@@ -44,17 +44,15 @@
 
   // To use the default WiFi library here 
   #define USE_WIFI_CUSTOM       false
-
-  #error USE_WIFI_PORTENTA_H7 not ready yet
-  
-#elif (ESP32)
+ 
+#elif defined(ESP32)
 
   #define USE_WIFI_NINA         false
 
   // To use the default WiFi library here 
   #define USE_WIFI_CUSTOM       false
 
-#elif (ESP8266)
+#elif (defined(ESP8266))
 
   #define USE_WIFI_NINA         false
 
@@ -72,14 +70,38 @@
   #define USE_WIFI_NINA         true
   #define USE_WIFI101           false
   #define USE_WIFI_CUSTOM       false
-
+ 
 #elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )
 
-  #error UNO_WIFI_REV2 and NANO_EVERY not supported yet
+  #if defined(ARDUINO_AVR_UNO_WIFI_REV2)
 
-#elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )
+    #define USE_WIFI_NINA         false
+    #define USE_WIFI101           true
+    #define USE_WIFI_CUSTOM       false
 
-  #error UNO_WIFI_REV2 and NANO_EVERY not supported yet  
+  #elif ( defined(__AVR_ATmega4809__) || defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) || \
+      defined(ARDUINO_AVR_ATmega4809) || defined(ARDUINO_AVR_ATmega4808) || defined(ARDUINO_AVR_ATmega3209) || \
+      defined(ARDUINO_AVR_ATmega3208) || defined(ARDUINO_AVR_ATmega1609) || defined(ARDUINO_AVR_ATmega1608) || \
+      defined(ARDUINO_AVR_ATmega809) || defined(ARDUINO_AVR_ATmega808) )
+      
+    #define USE_WIFI_NINA         false
+    #define USE_WIFI101           false
+    #define USE_WIFI_CUSTOM       true
+    
+  #else
+  
+    #define USE_WIFI_NINA         false
+    #define USE_WIFI101           false
+    #define USE_WIFI_CUSTOM       true
+    
+  #endif
+
+#elif defined(CONFIG_PLATFORM_8721D)
+
+  //#error Ameba Realtek RTL8720DN, RTL8722DM and RTM8722CSM not supported yet
+  #define USE_WIFI_NINA         false
+  #define USE_WIFI101           false
+  #define USE_WIFI_CUSTOM       true
   
 #else
 
@@ -94,13 +116,16 @@
 #define WIFI_USING_ESP8266_AT_WEBSERVER         false
 
 #if (!USE_WIFI_NINA && USE_WIFI_CUSTOM)
-  #if (ESP8266)
+  #if (defined(ESP8266))
     #include "ESP8266WiFi.h"
   #elif WIFI_USING_ESP8266_AT_WEBSERVER
     #warning WIFI_USING_ESP8266_AT_WEBSERVER
     #error WIFI_USING_ESP8266_AT_WEBSERVER not ready yet
     #include "ESP8266_AT_WebServer.h"
     #define WIFI_USING_ESP_AT     true
+  #elif defined(CONFIG_PLATFORM_8721D)
+    #include "WiFi.h"
+    #define WIFI_USING_ESP_AT     false
   #else
     #warning WIFI_USING_WIFIESPAT
    //#include "WiFi_XYZ.h"
@@ -110,10 +135,14 @@
 #endif
 
 #if WIFI_USING_ESP_AT
-  #define EspSerial       Serial1
+  #if defined(Serial1)
+    #define EspSerial       Serial1
+  #else
+    #define EspSerial       Serial
+  #endif
 #endif
 
-#if USE_WIFI_PORTENTA_H7
+#if defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
   #warning Using Portenta H7 WiFi
   #define SHIELD_TYPE           "Portenta_H7 WiFi"
 #elif USE_WIFI_NINA
@@ -121,11 +150,10 @@
   #define SHIELD_TYPE           "WiFiNINA using WiFiNINA_Generic Library"
 #elif USE_WIFI101
   #warning Using WiFi101 using WiFi101 Library
-  #error USE_WIFI101 not ready yet
   #define SHIELD_TYPE           "WiFi101 using WiFi101 Library"
-#elif (ESP32 || ESP8266)
+#elif (defined(ESP32) || defined(ESP8266))
   #warning Using ESP WiFi with WiFi Library
-  #define SHIELD_TYPE           "ESP WiFi using WiFi Library"  
+  #define SHIELD_TYPE           "ESP WiFi using WiFi Library"
 #elif USE_WIFI_CUSTOM
   #warning Using Custom WiFi using Custom WiFi Library
   #define SHIELD_TYPE           "Custom WiFi using Custom WiFi Library"
@@ -179,6 +207,14 @@
   #endif
   #define WIFI_USE_RP2040      true
   #warning Use RP2040 architecture from WiFiMulti_Generic
+#endif
+
+#if ( defined(ARDUINO_AVR_ADK) || defined(ARDUINO_AVR_MEGA) || defined(ARDUINO_AVR_MEGA2560) )
+  #if defined(WIFI_USE_AVR)
+    #undef WIFI_USE_AVR
+  #endif
+  #define WIFI_USE_AVR      true
+  #warning Use AVR Mega architecture from WiFiMulti_Generic
 #endif
 
 #ifdef CORE_TEENSY
@@ -337,6 +373,11 @@
   #endif
 
 #elif defined(WIFI_USE_STM32)
+
+  // For STM32
+  #warning EspSerial using SERIAL_PORT_HARDWARE, can be Serial or Serial1. See your board variant.h
+  #define EspSerial     SERIAL_PORT_HARDWARE    //Serial1
+  
   #if defined(STM32F0)
     #warning STM32F0 board selected
     #define BOARD_TYPE  "STM32F0"
@@ -353,11 +394,30 @@
     #warning STM32F4 board selected
     #define BOARD_TYPE  "STM32F4"
   #elif defined(STM32F7)
-    #warning STM32F7 board selected
-    #define BOARD_TYPE  "STM32F7"
+
+    #if defined(ARDUINO_NUCLEO_F767ZI)
+      #warning Nucleo-144 NUCLEO_F767ZI board selected, using HardwareSerial Serial1 @ pin D0/RX and D1/TX
+      // RX TX
+      HardwareSerial Serial1(D0, D1);
+    #else
+    
+      #warning STM32F7 board selected
+      #define BOARD_TYPE  "STM32F7"
+
+    #endif
+    
   #elif defined(STM32L0)
-    #warning STM32L0 board selected
-    #define BOARD_TYPE  "STM32L0"
+    #if defined(ARDUINO_NUCLEO_L053R8)
+      #warning Nucleo-64 NUCLEO_L053R8 board selected, using HardwareSerial Serial1 @ pin D0/RX and D1/TX
+      // RX TX
+      HardwareSerial Serial1(D0, D1);   // (PA3, PA2);
+    #else
+    
+      #warning STM32L0 board selected
+      #define BOARD_TYPE  "STM32L0"
+
+    #endif
+    
   #elif defined(STM32L1)
     #warning STM32L1 board selected
     #define BOARD_TYPE  "STM32L1"
@@ -384,6 +444,13 @@
     #define BOARD_TYPE  "STM32 Unknown"
   #endif
 
+#elif defined(BOARD_SIPEED_MAIX_DUINO)
+
+  #warning SIPEED_MAIX_DUINO board selected
+  #define BOARD_TYPE  "BOARD_SIPEED_MAIX_DUINO"
+
+  #define EspSerial       Serial1  
+
 #elif defined(ESP32)
 
   #warning ESP32 board selected
@@ -394,18 +461,46 @@
   #warning ESP8266 board selected
   #define BOARD_TYPE  "ESP8266"
 
-#elif WIFI_USE_RP2040
+#elif defined(WIFI_USE_RP2040) && WIFI_USE_RP2040
 
   #warning RP2040 board selected
 
-#elif WIFI_USE_SAM_DUE  
+#elif defined(WIFI_USE_SAM_DUE) && WIFI_USE_SAM_DUE 
 
   #warning SAM DUE board selected
-  
+
+#elif defined(CONFIG_PLATFORM_8721D)
+
+  #warning RTL8720DN board using AmebaD core selected
+  #define BOARD_TYPE  "RTL8720DN"
+
+#elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )  
+
+  #warning megaAVR board selected
+
+#elif ( defined(__AVR_ATmega4809__) || \
+      defined(ARDUINO_AVR_ATmega4809) || defined(ARDUINO_AVR_ATmega4808) || defined(ARDUINO_AVR_ATmega3209) || \
+      defined(ARDUINO_AVR_ATmega3208) || defined(ARDUINO_AVR_ATmega1609) || defined(ARDUINO_AVR_ATmega1608) || \
+      defined(ARDUINO_AVR_ATmega809) || defined(ARDUINO_AVR_ATmega808) ) 
+      
+  #error MegaCoreX megaAVR board not supported
+
+#elif (WIFI_USE_AVR)
+
+  #if defined(ARDUINO_AVR_MEGA2560)
+    #define BOARD_TYPE      "AVR Mega2560"
+  #elif defined(ARDUINO_AVR_MEGA) 
+    #define BOARD_TYPE      "AVR Mega"
+  #else
+    #define BOARD_TYPE      "AVR ADK"
+  #endif
+
+  // For Mega, use Serial1 or Serial3
+  #define EspSerial Serial3
+      
 #else
 
-  #error AVR Mega, UNO, Nano, etc.  not supported yet
-  #define BOARD_TYPE      "AVR Mega"
+  #warning Unknown or unsupported board
   
 #endif
 
