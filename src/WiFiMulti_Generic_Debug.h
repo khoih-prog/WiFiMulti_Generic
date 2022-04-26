@@ -17,12 +17,13 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
   You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>
   
-  Version: 1.1.0
+  Version: 1.1.1
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      15/02/2020 Initial coding for ESP32, ESP8266, WiFiNINA and ESP_AT modules
   1.1.0   K Hoang      16/02/2020 Add support to WiFi101 and many more boards (PortentaH7, megaAVR, Sparkfun SAMD, etc.)
+  1.1.1   K Hoang      26/04/2020 Fix bug
  ***************************************************************************************************************************************/
 
 #pragma once
@@ -63,7 +64,12 @@ const char WFM_LINE[]  = "======================================================
 
 #define WFM_PRINT_MARK      WFM_PRINT(WFM_MARK)
 #define WFM_PRINT_SP        WFM_PRINT(WFM_SPACE)
-#define WFM_PRINT_LINE      WFM_PRINT(WFM_LINE)
+
+#if(_WIFIMULTI_LOGLEVEL_> 3)
+  #define WFM_PRINT_LINE      WFM_PRINT(WFM_LINE)
+#else
+  #define WFM_PRINT_LINE
+#endif  
 
 #define WFM_PRINT           WFM_DEBUG_OUTPUT.print
 #define WFM_PRINTLN         WFM_DEBUG_OUTPUT.println

@@ -12,6 +12,7 @@
 
 
 * [Changelog](#changelog)
+  * [Releases v1.1.1](#releases-v111)
   * [Releases v1.1.0](#releases-v110)
   * [Releases v1.0.0](#releases-v100)
 
@@ -19,6 +20,11 @@
 ---
 
 ## Changelog
+
+#### Releases v1.1.1
+
+1. Fix bug
+2. Update `Packages_Patches`
 
 #### Releases v1.1.0
 

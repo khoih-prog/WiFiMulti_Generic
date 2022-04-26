@@ -5,7 +5,8 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#Contributing)
 [![GitHub issues](https://img.shields.io/github/issues/khoih-prog/WiFiMulti_Generic.svg)](http://github.com/khoih-prog/WiFiMulti_Generic/issues)
 
-<a href="https://www.buymeacoffee.com/khoihprog6" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Donate to my libraries using BuyMeACoffee" style="height: 50px !important;width: 181px !important;" ></a>
+<a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange.svg?logo=buy-me-a-coffee&logoColor=FFDD00" style="height: 20px !important;width: 200px !important;" ></a>
 
 ---
 ---
@@ -38,6 +39,9 @@
     * [8.1. To use BOARD_NAME](#81-to-use-board_name)
     * [8.2. To avoid compile error relating to microsecondsToClockCycles](#82-to-avoid-compile-error-relating-to-microsecondstoclockcycles)
   * [9. For Portenta_H7 boards using Arduino IDE in Linux](#9-for-portenta_h7-boards-using-arduino-ide-in-linux)
+  * [10. For RTL8720DN boards using AmebaD core](#10-for-rtl8720dn-boards-using-amebad-core)
+  * [11. For SAMD21 and SAMD51 boards using ArduinoCore-fab-sam core](#11-For-SAMD21-and-SAMD51-boards-using-ArduinoCore-fab-sam-core)
+  * [12. For Seeeduino RP2040 boards](#12-For-Seeeduino-RP2040-boards)
 * [Libraries' Patches](#libraries-patches)
    * [1. ArduinoSTL for AVR boards](#1-ArduinoSTL-for-AVR-boards)
 * [Examples](#examples)
@@ -178,28 +182,27 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
  1. [`Arduino IDE 1.8.19+` for Arduino](https://github.com/arduino/Arduino). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
  2. [`ESP32 Core 2.0.2+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
  3. [`ESP8266 Core 3.0.2+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/).
- 4. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) for AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest) **New**
+ 4. [`Arduino AVR core 1.8.5+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) for AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest) **New**
  5. [`Adafruit AVR core 1.4.14+`](https://github.com/adafruit/Adafruit_Arduino_Boards) for Adafruit AVR boards. Use Arduino Board Manager to install. **New**
  6. [`Sparkfun AVR core 1.1.13+`](https://github.com/sparkfun/Arduino_Boards) for Sparkfun AVR boards. Use Arduino Board Manager to install. **New**
  7. [`Teensy core v1.56+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards.
  8. [`Arduino SAM DUE core v1.6.12+`](https://github.com/arduino/ArduinoCore-sam) for SAM DUE ARM Cortex-M3 boards.
- 9. [`Arduino SAMD core 1.8.12+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
-10. [`Adafruit SAMD core 1.7.9+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
+ 9. [`Arduino SAMD core 1.8.13+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
+10. [`Adafruit SAMD core 1.7.10+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
 11. [`Seeeduino SAMD core 1.8.2+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
 12. [`Adafruit nRF52 v1.3.0+`](https://github.com/adafruit/Adafruit_nRF52_Arduino) for nRF52 boards such as Adafruit NRF52840_FEATHER, NRF52832_FEATHER, NRF52840_FEATHER_SENSE, NRF52840_ITSYBITSY, NRF52840_CIRCUITPLAY, NRF52840_CLUE, NRF52840_METRO, NRF52840_PCA10056, PARTICLE_XENON, **NINA_B302_ublox**, etc. [![GitHub release](https://img.shields.io/github/release/adafruit/Adafruit_nRF52_Arduino.svg)](https://github.com/adafruit/Adafruit_nRF52_Arduino/releases/latest)
 13. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
-14. [`Earle Philhower's arduino-pico core v1.12.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
-15. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core 2.7.2+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+14. [`Earle Philhower's arduino-pico core v1.13.3+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+15. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core 3.0.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
 16. [`Arduino megaAVR core 1.8.7+`](https://github.com/arduino/ArduinoCore-megaavr/releases) for Arduino megaAVR boards such as **Arduino UNO WiFi Rev2, AVR_NANO_EVERY, etc.**
 17. [`STM32 Arduino_STM32 core 1.0.0+`](https://github.com/rogerclarkmelbourne/Arduino_STM32) for STM32F boards.  [![GitHub release](https://img.shields.io/github/release/rogerclarkmelbourne/Arduino_STM32.svg)](https://github.com/rogerclarkmelbourne/Arduino_STM32/releases/latest). **New**
-18. [`MegaCoreX megaAVR core 1.0.9+`](https://github.com/MCUdude/MegaCoreX/releases) for Arduino megaAVR boards.  [![GitHub release](https://img.shields.io/github/release/MCUdude/MegaCoreX.svg)](https://github.com/MCUdude/MegaCoreX/releases/latest). Follow [**How to install**](https://github.com/MCUdude/MegaCoreX#how-to-install). **Not yet**
-
-
-19. [`WiFiNINA_Generic library v1.8.14-3+`](https://github.com/khoih-prog/WiFiNINA_Generic) if using WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
-20. [`Modified WiFi101 Library v0.16.1+`](https://github.com/khoih-prog/WiFi101) to use SAMD MKR1000, etc. boards with WiFi101.
-21. [`WiFiEspAT library v1.3.2+`](https://github.com/jandrassy/WiFiEspAT) if using ESP8288/ESP32-AT shields. [![GitHub release](https://img.shields.io/github/release/jandrassy/WiFiEspAT.svg)](https://github.com/jandrassy/WiFiEspAT/releases/latest)
-22. [`ArduinoSTL library v1.3.3+`](https://github.com/mike-matera/ArduinoSTL) if using AVR boards. [![GitHub release](https://img.shields.io/github/release/mike-matera/ArduinoSTL.svg)](https://github.com/mike-matera/ArduinoSTL/releases/latest)
-
+18. [`MegaCoreX megaAVR core 1.0.10+`](https://github.com/MCUdude/MegaCoreX/releases) for Arduino megaAVR boards.  [![GitHub release](https://img.shields.io/github/release/MCUdude/MegaCoreX.svg)](https://github.com/MCUdude/MegaCoreX/releases/latest). Follow [**How to install**](https://github.com/MCUdude/MegaCoreX#how-to-install). **Not yet**
+19. [`Functional-Vlpp library v1.0.2+`](https://github.com/khoih-prog/functional-vlpp) to use server's lambda function. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/Functional-Vlpp.svg?)](https://www.ardu-badge.com/Functional-Vlpp)
+20. [`WiFiNINA_Generic library v1.8.14-3+`](https://github.com/khoih-prog/WiFiNINA_Generic) if using WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
+21. [`Modified WiFi101 Library v0.16.1+`](https://github.com/khoih-prog/WiFi101) to use SAMD MKR1000, etc. boards with WiFi101.
+22. [`WiFiEspAT library v1.3.2+`](https://github.com/jandrassy/WiFiEspAT) if using ESP8288/ESP32-AT shields. [![GitHub release](https://img.shields.io/github/release/jandrassy/WiFiEspAT.svg)](https://github.com/jandrassy/WiFiEspAT/releases/latest)
+23. [`ArduinoSTL library v1.3.3+`](https://github.com/mike-matera/ArduinoSTL) if using AVR boards. [![GitHub release](https://img.shields.io/github/release/mike-matera/ArduinoSTL.svg)](https://github.com/mike-matera/ArduinoSTL/releases/latest)
+24. [`ESP_AT_Lib library v1.4.1+`](https://github.com/khoih-prog/ESP_AT_Lib) if using ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib).
 
 ---
 ---
@@ -295,13 +298,13 @@ This file must be copied into the directory:
 
 #### 4. For Arduino SAMD boards
  
- ***To be able to compile, run and automatically detect and display BOARD_NAME on Arduino SAMD (Nano-33-IoT, etc) boards***, you have to copy the whole [Arduino SAMD Packages_Patches](Packages_Patches/arduino/hardware/samd/1.8.12) directory into Arduino SAMD directory (~/.arduino15/packages/arduino/hardware/samd/1.8.12).
+ ***To be able to compile, run and automatically detect and display BOARD_NAME on Arduino SAMD (Nano-33-IoT, etc) boards***, you have to copy the whole [Arduino SAMD Packages_Patches](Packages_Patches/arduino/hardware/samd/1.8.13) directory into Arduino SAMD directory (~/.arduino15/packages/arduino/hardware/samd/1.8.13).
  
 #### For core version v1.8.10+
 
-Supposing the Arduino SAMD version is 1.8.12. Now only one file must be copied into the directory:
+Supposing the Arduino SAMD version is 1.8.13. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/samd/1.8.12/platform.txt`
+- `~/.arduino15/packages/arduino/hardware/samd/1.8.13/platform.txt`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
@@ -442,12 +445,12 @@ With core after v1.5.0, this step is not necessary anymore thanks to the PR [Add
 
 #### 9. For Portenta_H7 boards using Arduino IDE in Linux
 
-  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/2.7.2/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/2.7.2/portenta_post_install.sh). 
+  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh). 
   
   Then run the following command using `sudo`
   
 ```
-$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/2.7.2
+$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0
 $ chmod 755 portenta_post_install.sh
 $ sudo ./portenta_post_install.sh
 ```
@@ -460,15 +463,59 @@ This will create the file `/etc/udev/rules.d/49-portenta_h7.rules` as follows:
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="035b", GROUP="plugdev", MODE="0666"
 ```
 
-Supposing the ArduinoCore-mbed core version is 2.7.2. Now only one file must be copied into the directory:
+Supposing the ArduinoCore-mbed core version is 3.0.0. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/mbed_portenta/2.7.2/portenta_post_install.sh`
+- `~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
 This file must be copied into the directory:
 
 - `~/.arduino15/packages/arduino/hardware/mbed_portenta/x.yy.zz/portenta_post_install.sh`
+
+
+#### 10. For RTL8720DN boards using AmebaD core
+ 
+ To avoid compile error relating to PROGMEM, you have to copy the file [Realtek AmebaD core pgmspace.h](Packages_Patches/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h) into Realtek AmebaD directory (~/.arduino15/packages/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h). 
+
+Supposing the Realtek AmebaD core version is 3.1.2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/realtek/hardware/AmebaD/x.yy.zz/cores/arduino/avr/pgmspace.h`
+
+
+#### 11. For SAMD21 and SAMD51 boards using ArduinoCore-fab-sam core
+ 
+ To avoid compile error relating to SAMD21/SAMD51, you have to copy the file [ArduinoCore-fab-sam core pgmspace.h](Packages_Patches/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt) into `ArduinoCore-fab-sam` samd directory (~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt). 
+
+Supposing the `ArduinoCore-fab-sam` samd core version is 1.6.18-alpha2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/x.yy.zz/boards.txt`
+
+
+#### 12. For Seeeduino RP2040 boards
+ 
+ ***To be able to compile, run and automatically detect and display BOARD_NAME on Seeeduino RP2040 (XIAO RP2040, Wio RP2040 Mini) boards***, you have to copy the whole [Seeeduino RP2040 Packages_Patches](Packages_Patches/Seeeduino/hardware/rp2040/2.7.2) directory into Seeeduino samd directory (~/.arduino15/packages/Seeeduino/hardware/rp2040/2.7.2). 
+
+Supposing the Seeeduino SAMD core version is 2.7.2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/Seeeduino/hardware/rp2040/2.7.2/boards.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/rp2040/2.7.2/variants/Seeed_XIAO_RP2040/pins_arduino.h`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/boards.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/variants/Seeed_XIAO_RP2040/pins_arduino.h`
 
 
 ---
@@ -499,695 +546,12 @@ Just copy the following file into the [`ArduinoSTL library`](https://github.com/
 
 #### 1. File [WiFiMulti.ino](examples/WiFiMulti/WiFiMulti.ino)
 
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/17561aa83ae9b238b7104f085f251462636f3bb8/examples/WiFiMulti/WiFiMulti.ino#L21-L193
 
-```cpp
-#include "defines.h"
-
-WiFiMulti_Generic wifiMulti;
-
-void heartBeatPrint()
-{
-  static int num = 1;
-
-  //WFM_LOGDEBUG1("\nWiFi connected, RSSI:", WiFi.RSSI());
-
-  if (WiFi.status() == WL_CONNECTED)
-    Serial.print(F("H"));        // H means connected to WiFi
-  else
-    Serial.print(F("F"));        // F means not connected to WiFi
-
-  if (num == 80)
-  {
-    Serial.println();
-    num = 1;
-  }
-  else if (num++ % 10 == 0)
-  {
-    Serial.print(F(" "));
-  } 
-}
-
-uint8_t connectMultiWiFi()
-{
-#if defined(ESP32)
-  // For ESP32, this better be 0 to shorten the connect time.
-  // For ESP32-S2/C3, must be > 500
-  #if ( USING_ESP32_S2 || USING_ESP32_C3 )
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           500L
-  #else
-    // For ESP32 core v1.0.6, must be >= 500
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           800L
-  #endif
-#elif (defined(ESP8266))
-  // For ESP8266, this better be 2200 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             2200L
-#else
-  // For general board, this better be 1000 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             1000L
-#endif
-
-#define WIFI_MULTI_CONNECT_WAITING_MS                   500L
-
-  Serial.println("WiFi lost. Trying to scan and reconnect");
-
-  WiFi.disconnect();
-
-  int i = 0;
-
-  uint8_t status = wifiMulti.run();
-
-  delay(WIFI_MULTI_1ST_CONNECT_WAITING_MS);
-
-  while ( ( i++ < 20 ) && ( status != WL_CONNECTED ) )
-  {
-    status = WiFi.status();
-
-    if ( status == WL_CONNECTED )
-      break;
-    else
-      delay(WIFI_MULTI_CONNECT_WAITING_MS);
-  }
-
-  if ( status == WL_CONNECTED )
-  {
-    WFM_LOGERROR1(F("WiFi connected after time: "), i);
-    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(",RSSI="), WiFi.RSSI());
-
-#if (defined(ESP32) || defined(ESP8266))
-    WFM_LOGERROR3(F("Channel:"), WiFi.channel(), F(",IP address:"), WiFi.localIP() );
-#else
-    WFM_LOGERROR1(F("IP address:"), WiFi.localIP() );
-#endif
-  }
-  else
-  {
-    WFM_LOGERROR(F("WiFi not connected"));
-
-    if (wifiMulti.run() != WL_CONNECTED)
-    {
-      Serial.println("WiFi not connected!");
-      delay(1000);
-    }
-  }
-
-  return status;
-}
-
-void check_WiFi()
-{
-#if ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
-  // Workaround for bug in https://github.com/arduino/ArduinoCore-mbed/issues/381
-  if ( (WiFi.status() != WL_CONNECTED) || (WiFi.RSSI() == 0) )
-#else
-  if ( (WiFi.status() != WL_CONNECTED) )
-#endif
-  {
-    Serial.println(F("\nWiFi lost. Call connectMultiWiFi in loop"));
-    connectMultiWiFi();
-  }
-}
-
-void check_status()
-{
-  static uint32_t checkstatus_timeout  = 0;
-  static uint32_t checkwifi_timeout    = 0;
-
-  static uint32_t current_millis;
-
-#define WIFICHECK_INTERVAL    1000L
-#define HEARTBEAT_INTERVAL    10000L
-
-  current_millis = millis();
-
-  // Check WiFi every WIFICHECK_INTERVAL (1) seconds.
-  if ((current_millis > checkwifi_timeout) || (checkwifi_timeout == 0))
-  {
-    check_WiFi();
-    checkwifi_timeout = current_millis + WIFICHECK_INTERVAL;
-  }
-
-  // Print hearbeat every HEARTBEAT_INTERVAL (10) seconds.
-  if ((current_millis > checkstatus_timeout) || (checkstatus_timeout == 0))
-  {
-    heartBeatPrint();
-    checkstatus_timeout = current_millis + HEARTBEAT_INTERVAL;
-  }
-
-  // Important delay() for RTL8720DN
-  delay(200);
-}
-
-void setup()
-{
-  Serial.begin(115200);
-  while (!Serial);
-
-  delay(200);
-
-  Serial.print(F("\nStarting WiFiMulti on ")); Serial.println(BOARD_NAME);
-  Serial.println(WIFIMULTI_GENERIC_VERSION);
-
-#if WIFI_USING_ESP_AT
-  // initialize serial for ESP module
-  EspSerial.begin(115200);
-  // initialize ESP module
-  WiFi.init(&EspSerial);
-
-  Serial.println(F("WiFi shield init done"));
-#endif
-
-  wifiMulti.addAP(your_ssid, your_pass);
-  wifiMulti.addAP("ssid_from_AP_1", "your_password_for_AP_1");
-  wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
-  wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
-
-  Serial.println("Connecting WiFi...");
-
-  if (wifiMulti.run() == WL_CONNECTED)
-  {
-    Serial.print("\nWiFi connected, IP address: ");
-    Serial.println(WiFi.localIP());
-  }
-}
-
-void loop()
-{
-  check_status();
-}
-```
 
 #### 2. File [defines.h](examples/WiFiMulti/defines.h)
 
-```cpp
-#ifndef defines_h
-#define defines_h
-
-#define DEBUG_WIFI_MULTI_GENERIC_PORT   Serial
-
-// Debug Level from 0 to 4
-#define _WIFIMULTI_LOGLEVEL_            4
-
-#define _WIFI_LOGLEVEL_                 1
-#define _WIFININA_LOGLEVEL_             3
-
-
-#if ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
-
-  #if defined(BOARD_NAME)
-    #undef BOARD_NAME
-  #endif
-
-  #if defined(CORE_CM7)
-    #warning Using Portenta H7 M7 core
-    #define BOARD_NAME            "PORTENTA_H7_M7"
-  #else
-    #warning Using Portenta H7 M4 core
-    #define BOARD_NAME            "PORTENTA_H7_M4"
-  #endif
-
-  #define USE_WIFI_PORTENTA_H7  true
-
-  #define USE_WIFI_NINA         false
-
-  // To use the default WiFi library here 
-  #define USE_WIFI_CUSTOM       false
- 
-#elif defined(ESP32)
-
-  #define USE_WIFI_NINA         false
-
-  // To use the default WiFi library here 
-  #define USE_WIFI_CUSTOM       false
-
-#elif (defined(ESP8266))
-
-  #define USE_WIFI_NINA         false
-
-  // To use the default WiFi library here 
-  #define USE_WIFI_CUSTOM       true
-
-#elif ( defined(ARDUINO_SAMD_MKR1000)  || defined(ARDUINO_SAMD_MKRWIFI1010) )
-
-  #define USE_WIFI_NINA         false
-  #define USE_WIFI101           true
-  #define USE_WIFI_CUSTOM       false
-
-#elif ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_SAMD_NANO_33_IOT) )
-
-  #define USE_WIFI_NINA         true
-  #define USE_WIFI101           false
-  #define USE_WIFI_CUSTOM       false
- 
-#elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )
-
-  #if defined(ARDUINO_AVR_UNO_WIFI_REV2)
-
-    #define USE_WIFI_NINA         false
-    #define USE_WIFI101           true
-    #define USE_WIFI_CUSTOM       false
-
-  #elif ( defined(__AVR_ATmega4809__) || defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) || \
-      defined(ARDUINO_AVR_ATmega4809) || defined(ARDUINO_AVR_ATmega4808) || defined(ARDUINO_AVR_ATmega3209) || \
-      defined(ARDUINO_AVR_ATmega3208) || defined(ARDUINO_AVR_ATmega1609) || defined(ARDUINO_AVR_ATmega1608) || \
-      defined(ARDUINO_AVR_ATmega809) || defined(ARDUINO_AVR_ATmega808) )
-      
-    #define USE_WIFI_NINA         false
-    #define USE_WIFI101           false
-    #define USE_WIFI_CUSTOM       true
-    
-  #else
-  
-    #define USE_WIFI_NINA         false
-    #define USE_WIFI101           false
-    #define USE_WIFI_CUSTOM       true
-    
-  #endif
-
-#elif defined(CONFIG_PLATFORM_8721D)
-
-  //#error Ameba Realtek RTL8720DN, RTL8722DM and RTM8722CSM not supported yet
-  #define USE_WIFI_NINA         false
-  #define USE_WIFI101           false
-  #define USE_WIFI_CUSTOM       true
-  
-#else
-
-  #define USE_WIFI_NINA         false
-  #define USE_WIFI101           false
-  
-  // If not USE_WIFI_NINA, you can USE_WIFI_CUSTOM, then include the custom WiFi library here 
-  #define USE_WIFI_CUSTOM       true
-
-#endif
-
-#define WIFI_USING_ESP8266_AT_WEBSERVER         false
-
-#if (!USE_WIFI_NINA && USE_WIFI_CUSTOM)
-  #if (defined(ESP8266))
-    #include "ESP8266WiFi.h"
-  #elif WIFI_USING_ESP8266_AT_WEBSERVER
-    #warning WIFI_USING_ESP8266_AT_WEBSERVER
-    #error WIFI_USING_ESP8266_AT_WEBSERVER not ready yet
-    #include "ESP8266_AT_WebServer.h"
-    #define WIFI_USING_ESP_AT     true
-  #elif defined(CONFIG_PLATFORM_8721D)
-    #include "WiFi.h"
-    #define WIFI_USING_ESP_AT     false
-  #else
-    #warning WIFI_USING_WIFIESPAT
-   //#include "WiFi_XYZ.h"
-    #include "WiFiEspAT.h"
-    #define WIFI_USING_ESP_AT     true  
-  #endif
-#endif
-
-#if WIFI_USING_ESP_AT
-  #if defined(Serial1)
-    #define EspSerial       Serial1
-  #else
-    #define EspSerial       Serial
-  #endif
-#endif
-
-#if defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
-  #warning Using Portenta H7 WiFi
-  #define SHIELD_TYPE           "Portenta_H7 WiFi"
-#elif USE_WIFI_NINA
-  #warning Using WiFiNINA using WiFiNINA_Generic Library
-  #define SHIELD_TYPE           "WiFiNINA using WiFiNINA_Generic Library"
-#elif USE_WIFI101
-  #warning Using WiFi101 using WiFi101 Library
-  #define SHIELD_TYPE           "WiFi101 using WiFi101 Library"
-#elif (defined(ESP32) || defined(ESP8266))
-  #warning Using ESP WiFi with WiFi Library
-  #define SHIELD_TYPE           "ESP WiFi using WiFi Library"
-#elif USE_WIFI_CUSTOM
-  #warning Using Custom WiFi using Custom WiFi Library
-  #define SHIELD_TYPE           "Custom WiFi using Custom WiFi Library"
-#else
-  #define SHIELD_TYPE           "Unknown WiFi shield/Library" 
-#endif
-
-#if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-        defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-        defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
-  #if defined(WIFI_USE_NRF528XX)
-    #undef WIFI_USE_NRF528XX
-  #endif
-  #define WIFI_USE_NRF528XX          true
-#endif
-
-#if    ( defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000) || defined(ARDUINO_SAMD_MKRWIFI1010) \
-      || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_SAMD_MKRFox1200) || defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) \
-      || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
-      || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
-      || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
-  #if defined(WIFI_USE_SAMD)
-    #undef WIFI_USE_SAMD
-  #endif
-  #define WIFI_USE_SAMD      true
-#endif
-
-#if ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
-  #if defined(WIFI_USE_SAM_DUE)
-    #undef WIFI_USE_SAM_DUE
-  #endif
-  #define WIFI_USE_SAM_DUE      true
-  #warning Use SAM_DUE architecture
-#endif
-
-#if ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
-       defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
-       defined(STM32WB) || defined(STM32MP1) ) && ! ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
-  #if defined(WIFI_USE_STM32)
-    #undef WIFI_USE_STM32
-  #endif
-  #define WIFI_USE_STM32      true
-#endif
-
-#if ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || \
-      defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || defined(ARDUINO_GENERIC_RP2040) )
-  #warning RP2040-based board selected
-
-  #if defined(WIFI_USE_RP2040)
-    #undef WIFI_USE_RP2040
-  #endif
-  #define WIFI_USE_RP2040      true
-  #warning Use RP2040 architecture from WiFiMulti_Generic
-#endif
-
-#if ( defined(ARDUINO_AVR_ADK) || defined(ARDUINO_AVR_MEGA) || defined(ARDUINO_AVR_MEGA2560) )
-  #if defined(WIFI_USE_AVR)
-    #undef WIFI_USE_AVR
-  #endif
-  #define WIFI_USE_AVR      true
-  #warning Use AVR Mega architecture from WiFiMulti_Generic
-#endif
-
-#ifdef CORE_TEENSY
-  #if defined(__IMXRT1062__)
-    // For Teensy 4.1/4.0
-    #define BOARD_TYPE      "TEENSY 4.1/4.0"
-  #elif defined(__MK66FX1M0__)
-    #define BOARD_TYPE "Teensy 3.6"
-  #elif defined(__MK64FX512__)
-    #define BOARD_TYPE "Teensy 3.5"
-  #elif defined(__MKL26Z64__)
-    #define BOARD_TYPE "Teensy LC"
-  #elif defined(__MK20DX256__)
-    #define BOARD_TYPE "Teensy 3.2" // and Teensy 3.1 (obsolete)
-  #elif defined(__MK20DX128__)
-    #define BOARD_TYPE "Teensy 3.0"
-  #elif defined(__AVR_AT90USB1286__)
-    #error Teensy 2.0++ not supported yet
-  #elif defined(__AVR_ATmega32U4__)
-    #error Teensy 2.0 not supported yet
-  #else
-    // For Other Boards
-    #define BOARD_TYPE      "Unknown Teensy Board"
-  #endif
-
-#elif defined(WIFI_USE_NRF528XX)
-  #if defined(NRF52840_FEATHER)
-    #define BOARD_TYPE      "NRF52840_FEATHER_EXPRESS"
-  #elif defined(NRF52832_FEATHER)
-    #define BOARD_TYPE      "NRF52832_FEATHER"
-  #elif defined(NRF52840_FEATHER_SENSE)
-    #define BOARD_TYPE      "NRF52840_FEATHER_SENSE"
-  #elif defined(NRF52840_ITSYBITSY)
-    #define BOARD_TYPE      "NRF52840_ITSYBITSY_EXPRESS"
-  #elif defined(NRF52840_CIRCUITPLAY)
-    #define BOARD_TYPE      "NRF52840_CIRCUIT_PLAYGROUND"
-  #elif defined(NRF52840_CLUE)
-    #define BOARD_TYPE      "NRF52840_CLUE"
-  #elif defined(NRF52840_METRO)
-    #define BOARD_TYPE      "NRF52840_METRO_EXPRESS"
-  #elif defined(NRF52840_PCA10056)
-    #define BOARD_TYPE      "NORDIC_NRF52840DK"
-  #elif defined(NINA_B302_ublox)
-    #define BOARD_TYPE      "NINA_B302_ublox"
-  #elif defined(NINA_B112_ublox)
-    #define BOARD_TYPE      "NINA_B112_ublox"
-  #elif defined(PARTICLE_XENON)
-    #define BOARD_TYPE      "PARTICLE_XENON"
-  #elif defined(MDBT50Q_RX)
-    #define BOARD_TYPE      "RAYTAC_MDBT50Q_RX"
-  #elif defined(ARDUINO_NRF52_ADAFRUIT)
-    #define BOARD_TYPE      "ARDUINO_NRF52_ADAFRUIT"
-  #else
-    #define BOARD_TYPE      "nRF52 Unknown"
-  #endif
-
-#elif defined(WIFI_USE_SAMD)
-  #if defined(ARDUINO_SAMD_ZERO)
-    #define BOARD_TYPE      "SAMD Zero"
-  #elif defined(ARDUINO_SAMD_MKR1000)
-    #define BOARD_TYPE      "SAMD MKR1000"
-  #elif defined(ARDUINO_SAMD_MKRWIFI1010)
-    #define BOARD_TYPE      "SAMD MKRWIFI1010"
-  #elif defined(ARDUINO_SAMD_NANO_33_IOT)
-    #define BOARD_TYPE      "SAMD NANO_33_IOT"
-  #elif defined(ARDUINO_SAMD_MKRFox1200)
-    #define BOARD_TYPE      "SAMD MKRFox1200"
-  #elif ( defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) )
-    #define BOARD_TYPE      "SAMD MKRWAN13X0"
-  #elif defined(ARDUINO_SAMD_MKRGSM1400)
-    #define BOARD_TYPE      "SAMD MKRGSM1400"
-  #elif defined(ARDUINO_SAMD_MKRNB1500)
-    #define BOARD_TYPE      "SAMD MKRNB1500"
-  #elif defined(ARDUINO_SAMD_MKRVIDOR4000)
-    #define BOARD_TYPE      "SAMD MKRVIDOR4000"
-  #elif defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS)
-    #define BOARD_TYPE      "SAMD ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS"
-  #elif defined(ADAFRUIT_FEATHER_M0_EXPRESS)
-    #define BOARD_TYPE      "SAMD21 ADAFRUIT_FEATHER_M0_EXPRESS"
-  #elif defined(ADAFRUIT_METRO_M0_EXPRESS)
-    #define BOARD_TYPE      "SAMD21 ADAFRUIT_METRO_M0_EXPRESS"
-  #elif defined(ADAFRUIT_CIRCUITPLAYGROUND_M0)
-    #define BOARD_TYPE      "SAMD21 ADAFRUIT_CIRCUITPLAYGROUND_M0"
-  #elif defined(ADAFRUIT_GEMMA_M0)
-    #define BOARD_TYPE      "SAMD21 ADAFRUIT_GEMMA_M0"
-  #elif defined(ADAFRUIT_TRINKET_M0)
-    #define BOARD_TYPE      "SAMD21 ADAFRUIT_TRINKET_M0"
-  #elif defined(ADAFRUIT_ITSYBITSY_M0)
-    #define BOARD_TYPE      "SAMD21 ADAFRUIT_ITSYBITSY_M0"
-  #elif defined(ARDUINO_SAMD_HALLOWING_M0)
-    #define BOARD_TYPE      "SAMD21 ARDUINO_SAMD_HALLOWING_M0"
-  #elif defined(ADAFRUIT_METRO_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_METRO_M4_EXPRESS"
-  #elif defined(ADAFRUIT_GRAND_CENTRAL_M4)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_GRAND_CENTRAL_M4"
-  #elif defined(ADAFRUIT_FEATHER_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_FEATHER_M4_EXPRESS"
-  #elif defined(ADAFRUIT_ITSYBITSY_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_ITSYBITSY_M4_EXPRESS"
-  #elif defined(ADAFRUIT_TRELLIS_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_TRELLIS_M4_EXPRESS"
-  #elif defined(ADAFRUIT_PYPORTAL)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_PYPORTAL"
-  #elif defined(ADAFRUIT_PYPORTAL_M4_TITANO)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_PYPORTAL_M4_TITANO"
-  #elif defined(ADAFRUIT_PYBADGE_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_PYBADGE_M4_EXPRESS"
-  #elif defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_METRO_M4_AIRLIFT_LITE"
-  #elif defined(ADAFRUIT_PYGAMER_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_PYGAMER_M4_EXPRESS"
-  #elif defined(ADAFRUIT_PYGAMER_ADVANCE_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_PYGAMER_ADVANCE_M4_EXPRESS"
-  #elif defined(ADAFRUIT_PYBADGE_AIRLIFT_M4)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_PYBADGE_AIRLIFT_M4"
-  #elif defined(ADAFRUIT_MONSTER_M4SK_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_MONSTER_M4SK_EXPRESS"
-  #elif defined(ADAFRUIT_HALLOWING_M4_EXPRESS)
-    #define BOARD_TYPE      "SAMD51 ADAFRUIT_HALLOWING_M4_EXPRESS"
-  #elif defined(SEEED_WIO_TERMINAL)
-    #define BOARD_TYPE      "SAMD SEEED_WIO_TERMINAL"
-  #elif defined(SEEED_FEMTO_M0)
-    #define BOARD_TYPE      "SAMD SEEED_FEMTO_M0"
-  #elif defined(SEEED_XIAO_M0)
-    #define BOARD_TYPE      "SAMD SEEED_XIAO_M0"
-  #elif defined(Wio_Lite_MG126)
-    #define BOARD_TYPE      "SAMD SEEED Wio_Lite_MG126"
-  #elif defined(WIO_GPS_BOARD)
-    #define BOARD_TYPE      "SAMD SEEED WIO_GPS_BOARD"
-  #elif defined(SEEEDUINO_ZERO)
-    #define BOARD_TYPE      "SAMD SEEEDUINO_ZERO"
-  #elif defined(SEEEDUINO_LORAWAN)
-    #define BOARD_TYPE      "SAMD SEEEDUINO_LORAWAN"
-  #elif defined(SEEED_GROVE_UI_WIRELESS)
-    #define BOARD_TYPE      "SAMD SEEED_GROVE_UI_WIRELESS"
-  #elif defined(__SAMD21E18A__)
-    #define BOARD_TYPE      "SAMD21E18A"
-  #elif defined(__SAMD21G18A__)
-    #define BOARD_TYPE      "SAMD21G18A"
-  #elif defined(__SAMD51G19A__)
-    #define BOARD_TYPE      "SAMD51G19A"
-  #elif defined(__SAMD51J19A__)
-    #define BOARD_TYPE      "SAMD51J19A"
-  #elif defined(__SAMD51P19A__)
-    #define BOARD_TYPE      "__SAMD51P19A__"
-  #elif defined(__SAMD51J20A__)
-    #define BOARD_TYPE      "SAMD51J20A"
-  #elif defined(__SAM3X8E__)
-    #define BOARD_TYPE      "SAM3X8E"
-  #elif defined(__CPU_ARC__)
-    #define BOARD_TYPE      "CPU_ARC"
-  #elif defined(__SAMD51__)
-    #define BOARD_TYPE      "SAMD51"
-  #else
-    #define BOARD_TYPE      "SAMD Unknown"
-  #endif
-
-#elif defined(WIFI_USE_STM32)
-
-  // For STM32
-  #warning EspSerial using SERIAL_PORT_HARDWARE, can be Serial or Serial1. See your board variant.h
-  #define EspSerial     SERIAL_PORT_HARDWARE    //Serial1
-  
-  #if defined(STM32F0)
-    #warning STM32F0 board selected
-    #define BOARD_TYPE  "STM32F0"
-  #elif defined(STM32F1)
-    #warning STM32F1 board selected
-    #define BOARD_TYPE  "STM32F1"
-  #elif defined(STM32F2)
-    #warning STM32F2 board selected
-    #define BOARD_TYPE  "STM32F2"
-  #elif defined(STM32F3)
-    #warning STM32F3 board selected
-    #define BOARD_TYPE  "STM32F3"
-  #elif defined(STM32F4)
-    #warning STM32F4 board selected
-    #define BOARD_TYPE  "STM32F4"
-  #elif defined(STM32F7)
-
-    #if defined(ARDUINO_NUCLEO_F767ZI)
-      #warning Nucleo-144 NUCLEO_F767ZI board selected, using HardwareSerial Serial1 @ pin D0/RX and D1/TX
-      // RX TX
-      HardwareSerial Serial1(D0, D1);
-    #else
-    
-      #warning STM32F7 board selected
-      #define BOARD_TYPE  "STM32F7"
-
-    #endif
-    
-  #elif defined(STM32L0)
-    #if defined(ARDUINO_NUCLEO_L053R8)
-      #warning Nucleo-64 NUCLEO_L053R8 board selected, using HardwareSerial Serial1 @ pin D0/RX and D1/TX
-      // RX TX
-      HardwareSerial Serial1(D0, D1);   // (PA3, PA2);
-    #else
-    
-      #warning STM32L0 board selected
-      #define BOARD_TYPE  "STM32L0"
-
-    #endif
-    
-  #elif defined(STM32L1)
-    #warning STM32L1 board selected
-    #define BOARD_TYPE  "STM32L1"
-  #elif defined(STM32L4)
-    #warning STM32L4 board selected
-    #define BOARD_TYPE  "STM32L4"
-  #elif defined(STM32H7)
-    #warning STM32H7 board selected
-    #define BOARD_TYPE  "STM32H7"
-  #elif defined(STM32G0)
-    #warning STM32G0 board selected
-    #define BOARD_TYPE  "STM32G0"
-  #elif defined(STM32G4)
-    #warning STM32G4 board selected
-    #define BOARD_TYPE  "STM32G4"
-  #elif defined(STM32WB)
-    #warning STM32WB board selected
-    #define BOARD_TYPE  "STM32WB"
-  #elif defined(STM32MP1)
-    #warning STM32MP1 board selected
-    #define BOARD_TYPE  "STM32MP1"
-  #else
-    #warning STM32 unknown board selected
-    #define BOARD_TYPE  "STM32 Unknown"
-  #endif
-
-#elif defined(BOARD_SIPEED_MAIX_DUINO)
-
-  #warning SIPEED_MAIX_DUINO board selected
-  #define BOARD_TYPE  "BOARD_SIPEED_MAIX_DUINO"
-
-  #define EspSerial       Serial1  
-
-#elif defined(ESP32)
-
-  #warning ESP32 board selected
-  #define BOARD_TYPE  "ESP32"
-  
-#elif defined(ESP8266)
-
-  #warning ESP8266 board selected
-  #define BOARD_TYPE  "ESP8266"
-
-#elif defined(WIFI_USE_RP2040) && WIFI_USE_RP2040
-
-  #warning RP2040 board selected
-
-#elif defined(WIFI_USE_SAM_DUE) && WIFI_USE_SAM_DUE 
-
-  #warning SAM DUE board selected
-
-#elif defined(CONFIG_PLATFORM_8721D)
-
-  #warning RTL8720DN board using AmebaD core selected
-  #define BOARD_TYPE  "RTL8720DN"
-
-#elif ( defined(ARDUINO_AVR_UNO_WIFI_REV2) || defined(ARDUINO_AVR_NANO_EVERY) )  
-
-  #warning megaAVR board selected
-
-#elif ( defined(__AVR_ATmega4809__) || \
-      defined(ARDUINO_AVR_ATmega4809) || defined(ARDUINO_AVR_ATmega4808) || defined(ARDUINO_AVR_ATmega3209) || \
-      defined(ARDUINO_AVR_ATmega3208) || defined(ARDUINO_AVR_ATmega1609) || defined(ARDUINO_AVR_ATmega1608) || \
-      defined(ARDUINO_AVR_ATmega809) || defined(ARDUINO_AVR_ATmega808) ) 
-      
-  #error MegaCoreX megaAVR board not supported
-
-#elif (WIFI_USE_AVR)
-
-  #if defined(ARDUINO_AVR_MEGA2560)
-    #define BOARD_TYPE      "AVR Mega2560"
-  #elif defined(ARDUINO_AVR_MEGA) 
-    #define BOARD_TYPE      "AVR Mega"
-  #else
-    #define BOARD_TYPE      "AVR ADK"
-  #endif
-
-  // For Mega, use Serial1 or Serial3
-  #define EspSerial Serial3
-      
-#else
-
-  #warning Unknown or unsupported board
-  
-#endif
-
-#ifndef BOARD_NAME
-  #if defined(ARDUINO_BOARD)
-    #define BOARD_NAME    ARDUINO_BOARD
-  #elif defined(BOARD_TYPE)
-    #define BOARD_NAME    BOARD_TYPE
-  #else
-    #define BOARD_NAME    "Unknown Board"
-  #endif  
-#endif
-
-#include <WiFiMulti_Generic.h>
-
-char your_ssid[] = "YOUR_SSID";        // your network SSID (name)
-char your_pass[] = "12345678";        // your network password
-
-#endif    //defines_h
-```
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/17561aa83ae9b238b7104f085f251462636f3bb8/examples/WiFiMulti/defines.h#L15-L522
 
 ---
 ---
@@ -1202,7 +566,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RASPBERRY_PI_PICO
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -1292,7 +656,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RaspberryPi Pico
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -1383,7 +747,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Nano RP2040 Connect
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1504,7 +868,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on NANO_RP2040_CONNECT
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1626,7 +990,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP8266_NODEMCU_ESP12E
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [APlistAdd] Add SSID: SSID = HueNet1
 [WFM] [APlistAdd] Add SSID: SSID = HueNet2
 Connecting WiFi...
@@ -1659,7 +1023,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32C3_DEV
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1870,7 +1234,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32S3_DEV
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -2103,7 +1467,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Arduino AVR Mega2560/ADK
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -2190,7 +1554,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RTL8720DN
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -2405,7 +1769,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on PORTENTA_H7_M7
-WiFiMulti_Generic v1.1.0
+WiFiMulti_Generic v1.1.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...

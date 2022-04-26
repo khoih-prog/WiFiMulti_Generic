@@ -17,12 +17,13 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
   You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>
   
-  Version: 1.1.0
+  Version: 1.1.1
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      15/02/2020 Initial coding for ESP32, ESP8266, WiFiNINA and ESP_AT modules
   1.1.0   K Hoang      16/02/2020 Add support to WiFi101 and many more boards (PortentaH7, megaAVR, Sparkfun SAMD, etc.)
+  1.1.1   K Hoang      26/04/2020 Fix bug
  ***************************************************************************************************************************************/
 
 #pragma once
@@ -31,13 +32,13 @@
 #define _WIFIMULTI_GENERIC_H_
 
 #ifndef WIFIMULTI_GENERIC_VERSION
-  #define WIFIMULTI_GENERIC_VERSION          "WiFiMulti_Generic v1.1.0"
+  #define WIFIMULTI_GENERIC_VERSION          "WiFiMulti_Generic v1.1.1"
 
   #define WIFIMULTI_GENERIC_VERSION_MAJOR    1
   #define WIFIMULTI_GENERIC_VERSION_MINOR    1
-  #define WIFIMULTI_GENERIC_VERSION_PATCH    0
+  #define WIFIMULTI_GENERIC_VERSION_PATCH    1
 
-  #define WIFIMULTI_GENERIC_VERSION_INT      1001000
+  #define WIFIMULTI_GENERIC_VERSION_INT      1001001
 #endif
 
 #if defined(ARDUINO)
