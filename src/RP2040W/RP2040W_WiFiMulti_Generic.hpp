@@ -1,5 +1,5 @@
 /**************************************************************************************************************************************
-  NINA_WiFiMulti_Generic.hpp
+  RP2040W_WiFiMulti_Generic.hpp
   For any WiFi shields, such as ESP32, ESP8266, Portenta_H7, WiFiNINA W101, W102, W13x, or custom, such as ESP8266/ESP32-AT, etc
   
   WiFiMulti_Generic is a library to adapt the  ESP32/ESP8266 WiFiMulti feature to other WiFi modules
@@ -36,8 +36,8 @@
  
 #pragma once
 
-#ifndef _NINA_WIFIMULTI_GENERIC_HPP_
-#define _NINA_WIFIMULTI_GENERIC_HPP_
+#ifndef _RP2040W_WIFIMULTI_GENERIC_HPP_
+#define _RP2040W_WIFIMULTI_GENERIC_HPP_
 
 #include <vector>
 
@@ -62,4 +62,4 @@ class WiFiMulti_Generic
   private:
     std::vector<WifiAPlist_t> APlist;
 };
-#endif /* _NINA_WIFIMULTI_GENERIC_HPP_ */
+#endif /* _RP2040W_WIFIMULTI_GENERIC_HPP_ */

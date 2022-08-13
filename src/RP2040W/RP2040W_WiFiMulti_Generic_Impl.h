@@ -1,5 +1,5 @@
 /**************************************************************************************************************************************
-  ESP_AT_WiFiMulti_Generic_Impl.h
+  RP2040W_WiFiMulti_Generic_Impl.h
   For any WiFi shields, such as ESP32, ESP8266, Portenta_H7, WiFiNINA W101, W102, W13x, or custom, such as ESP8266/ESP32-AT, etc
   
   WiFiMulti_Generic is a library to adapt the  ESP32/ESP8266 WiFiMulti feature to other WiFi modules
@@ -33,11 +33,11 @@
   1.1.1   K Hoang      26/04/2020 Fix bug
   1.2.0   K Hoang      12/08/2022 Add support to RASPBERRY_PI_PICO_W using CYW4343 WiFi
  ***************************************************************************************************************************************/
- 
+
 #pragma once
 
-#ifndef _ESP_AT_WIFIMULTI_GENERIC_IMPL_H_
-#define _ESP_AT_WIFIMULTI_GENERIC_IMPL_H_ 
+#ifndef _RP2040W_WIFIMULTI_GENERIC_IMPL_H_
+#define _RP2040W_WIFIMULTI_GENERIC_IMPL_H_ 
 
 #include <limits.h>
 #include <string.h>
@@ -131,17 +131,17 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
     }
 
     WiFi.disconnect();
-   
+    
     delay(10);
     status = WiFi.status();
   }
 
   scanResult = WiFi.scanNetworks();
   
-  if (scanResult == 0) 
+  if (scanResult == -1) 
   {
     // scan is running
-    return 0;
+    return WL_NO_SSID_AVAIL;
   } 
   else if (scanResult >= 0) 
   {
@@ -149,8 +149,7 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
     WifiAPlist_t bestNetwork { NULL, NULL };
     
     int bestNetworkDb = INT_MIN;
-    uint8_t bestBSSID[6] = { 0 };
-    int32_t bestChannel = 0;
+    uint8_t bestBSSID[6];
 
     WFM_LOGINFO("[run] Scan done");
 
@@ -169,10 +168,8 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
         uint8_t sec_scan    = WiFi.encryptionType(i); 
         
         byte bssid[6];
-        uint8_t* BSSID_scan  = WiFi.BSSID(i, bssid);
+        uint8_t* BSSID_scan  = WiFi.BSSID(bssid);
         
-        int32_t chan_scan   = WiFi.channel(i);      
-
         bool known = false;
         
         for (uint32_t x = APlist.size() ; x > 0; x--) 
@@ -187,11 +184,10 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
             if (rssi_scan > bestNetworkDb) 
             { 
               // best network
-              if (sec_scan == ENC_TYPE_NONE || entry.passphrase) 
+              if (sec_scan == ENC_TYPE_NONE /*WIFI_AUTH_OPEN*/ || entry.passphrase) 
               { 
                 // check for passphrase if not open wlan
                 bestNetworkDb = rssi_scan;
-                bestChannel = chan_scan;
                 memcpy((void*) &bestNetwork, (void*) &entry, sizeof(bestNetwork));
                 memcpy((void*) &bestBSSID, (void*) BSSID_scan, sizeof(bestBSSID));
               }
@@ -205,13 +201,13 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
 
         if (known) 
         {
-          WFM_LOGDEBUG3("  Known => #", i, ", Channel:", chan_scan);
+          WFM_LOGDEBUG1("  Known => #", i);
           WFM_HEXLOGDEBUG5_SEPARATOR(":", BSSID_scan[0], BSSID_scan[1], BSSID_scan[2], BSSID_scan[3], BSSID_scan[4], BSSID_scan[5]);
           WFM_LOGDEBUG5("SSID:", ssid_scan.c_str(), ", RSSI:", rssi_scan, ", Secured:", (sec_scan == ENC_TYPE_NONE /*WIFI_AUTH_OPEN*/) ? 'n' : 'y');
         } 
         else 
         {
-          WFM_LOGDEBUG3("Unknown => #", i, ", Channel:", chan_scan);
+          WFM_LOGDEBUG1("Unknown => #", i);
           WFM_HEXLOGDEBUG5_SEPARATOR(":", BSSID_scan[0], BSSID_scan[1], BSSID_scan[2], BSSID_scan[3], BSSID_scan[4], BSSID_scan[5]);
           WFM_LOGDEBUG5("SSID:", ssid_scan.c_str(), ", RSSI:", rssi_scan, ", Secured:", (sec_scan == ENC_TYPE_NONE /*WIFI_AUTH_OPEN*/) ? 'n' : 'y');
         }
@@ -224,7 +220,7 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
     {
       WFM_LOGINFO0("[run] Connecting BSSID: ");
       WFM_HEXLOGINFO5_SEPARATOR(":", bestBSSID[0], bestBSSID[1], bestBSSID[2], bestBSSID[3], bestBSSID[4], bestBSSID[5]);
-      WFM_LOGINFO5("SSID: ", bestNetwork.ssid, ", Channel: ", bestChannel, ", Best dB: ", bestNetworkDb);
+      WFM_LOGINFO3("SSID: ", bestNetwork.ssid, ", Best dB: ", bestNetworkDb);
       
       WiFi.begin(bestNetwork.ssid, bestNetwork.passphrase);
       
@@ -233,7 +229,7 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
       auto startTime = millis();
       
       // wait for connection, fail, or timeout
-      while (status != WL_CONNECTED && status != WL_CONNECT_FAILED && status != WL_CONNECT_FAILED && (millis() - startTime) <= connectTimeout) 
+      while (status != WL_CONNECTED && status != WL_NO_SSID_AVAIL && status != WL_CONNECT_FAILED && (millis() - startTime) <= connectTimeout) 
       {
         delay(10);
         status = WiFi.status();
@@ -245,6 +241,10 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
           WFM_LOGINFO("[run] Connecting done.");
           WFM_LOGDEBUG3("[run] SSID: ", WiFi.SSID(), ", IP: ", WiFi.localIP());
           
+          break;
+          
+        case WL_NO_SSID_AVAIL:
+          WFM_LOGERROR("[run] Connecting Failed, AP not found.");
           break;
           
         case WL_CONNECT_FAILED:
@@ -275,4 +275,4 @@ uint8_t WiFiMulti_Generic::run(const uint32_t& connectTimeout)
   return status;
 }
 
-#endif    // _ESP_AT_WIFIMULTI_GENERIC_IMPL_H_
+#endif    // _RP2040W_WIFIMULTI_GENERIC_IMPL_H_

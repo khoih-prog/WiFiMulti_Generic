@@ -17,13 +17,14 @@
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
   You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>
   
-  Version: 1.1.1
+  Version: 1.2.0
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      15/02/2020 Initial coding for ESP32, ESP8266, WiFiNINA and ESP_AT modules
   1.1.0   K Hoang      16/02/2020 Add support to WiFi101 and many more boards (PortentaH7, megaAVR, Sparkfun SAMD, etc.)
   1.1.1   K Hoang      26/04/2020 Fix bug
+  1.2.0   K Hoang      12/08/2022 Add support to RASPBERRY_PI_PICO_W using CYW4343 WiFi
  ***************************************************************************************************************************************/
 
 #pragma once
@@ -32,13 +33,13 @@
 #define _WIFIMULTI_GENERIC_H_
 
 #ifndef WIFIMULTI_GENERIC_VERSION
-  #define WIFIMULTI_GENERIC_VERSION          "WiFiMulti_Generic v1.1.1"
+  #define WIFIMULTI_GENERIC_VERSION          "WiFiMulti_Generic v1.2.0"
 
   #define WIFIMULTI_GENERIC_VERSION_MAJOR    1
-  #define WIFIMULTI_GENERIC_VERSION_MINOR    1
-  #define WIFIMULTI_GENERIC_VERSION_PATCH    1
+  #define WIFIMULTI_GENERIC_VERSION_MINOR    2
+  #define WIFIMULTI_GENERIC_VERSION_PATCH    0
 
-  #define WIFIMULTI_GENERIC_VERSION_INT      1001001
+  #define WIFIMULTI_GENERIC_VERSION_INT      1002000
 #endif
 
 #if defined(ARDUINO)
@@ -69,9 +70,12 @@
   #if defined(USE_NEW_WEBSERVER_VERSION)
     #undef USE_NEW_WEBSERVER_VERSION
   #endif
-  #define USE_NEW_WEBSERVER_VERSION   false
   
-  #warning Use mbed-portenta architecture for PORTENTA_H7 from WiFiMulti_Generic
+  // KH, comment out from v1.2.0
+  //#define USE_NEW_WEBSERVER_VERSION   false
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use mbed-portenta architecture for PORTENTA_H7 from WiFiMulti_Generic
+  #endif
 #endif
 
 #if    ( defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000) || defined(ARDUINO_SAMD_MKRWIFI1010) \
@@ -83,7 +87,10 @@
     #undef WIFI_USE_SAMD
   #endif
   #define WIFI_USE_SAMD      true
-  #warning Use SAMD architecture from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use SAMD architecture from WiFiMulti_Generic
+  #endif
 #endif
 
 #if (defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
@@ -94,7 +101,10 @@
     #undef WIFI_USE_NRF528XX
   #endif
   #define WIFI_USE_NRF528XX      true
-  #warning Use nFR52 architecture from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use nFR52 architecture from WiFiMulti_Generic
+  #endif
   
   #include <Adafruit_TinyUSB.h>
 
@@ -105,30 +115,50 @@
     #undef WIFI_USE_SAM_DUE
   #endif
   #define WIFI_USE_SAM_DUE      true
-  #warning Use SAM_DUE architecture from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use SAM_DUE architecture from WiFiMulti_Generic
+  #endif
 #endif
 
 #if ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
        defined(STM32WB) || defined(STM32MP1) ) && !( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
-  #warning STM32F/L/H/G/WB/MP1 board selected
 
   #if defined(WIFI_USE_STM32)
     #undef WIFI_USE_STM32
   #endif
   #define WIFI_USE_STM32      true
-  #warning Use STM32 architecture from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use STM32 architecture from WiFiMulti_Generic
+  #endif
 #endif
 
 #if ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || \
-      defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || defined(ARDUINO_GENERIC_RP2040) )
-  #warning RP2040-based board selected
-
-  #if defined(WIFI_USE_RP2040)
-    #undef WIFI_USE_RP2040
+      defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || defined(ARDUINO_GENERIC_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO_W) )
+  
+  #if (_WIFIMULTI_LOGLEVEL_ > 3)
+    #if defined(ARDUINO_RASPBERRY_PI_PICO_W)
+      #warning RASPBERRY_PI_PICO_W board using CYW43439 WiFi selected
+    #else
+      #warning RP2040-based board selected
+    #endif
   #endif
-  #define WIFI_USE_RP2040      true
-  #warning Use RP2040 architecture from WiFiMulti_Generic
+  
+  #if defined(ARDUINO_RASPBERRY_PI_PICO_W)
+    #define WIFI_USE_RP2040W      true
+  #else 
+    #if defined(WIFI_USE_RP2040)
+      #undef WIFI_USE_RP2040
+    #endif
+    #define WIFI_USE_RP2040      true 
+  #endif
+  
+  #if (_WIFIMULTI_LOGLEVEL_ > 3)
+    #warning Use RP2040 architecture from WiFiMulti_Generic
+  #endif
+
 #endif
 
 /////////////////////////////////////////////////////////////////
@@ -151,42 +181,81 @@
 #if USE_WIFI_NINA
   #include <WiFiNINA_Generic.h>
   //#include <WiFiNINA.h>
-  #warning Use WiFiNINA from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use WiFiNINA from WiFiMulti_Generic
+  #endif
 #elif USE_WIFI101
   #include <WiFi101.h>
-  #warning Use WiFi101 from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use WiFi101 from WiFiMulti_Generic
+  #endif
 #elif (USE_WIFI_ESP_AT || WIFI_USING_ESP_AT)
   #if WIFI_USING_ESP8266_AT_WEBSERVER
     #include <ESP8266_AT_WebServer.h>
-    #warning Use ESP8266_AT_WebServer Library for WiFiMulti_Generic
+    
+    #if(_WIFIMULTI_LOGLEVEL_> 3)
+      #warning Use ESP8266_AT_WebServer Library for WiFiMulti_Generic
+    #endif
   #else
     #include <WiFiEspAT.h>
-    #warning Use WiFiEspAT Library for WiFiMulti_Generic
+    
+    #if(_WIFIMULTI_LOGLEVEL_> 3)
+      #warning Use WiFiEspAT Library for WiFiMulti_Generic
+    #endif
   #endif
 #elif defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
   #include <WiFi.h>
-  #warning Use PORTENTA_H7 WiFi from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use PORTENTA_H7 WiFi from WiFiMulti_Generic
+  #endif
+#elif defined(WIFI_USE_RP2040W) && WIFI_USE_RP2040W
+  #include <WiFi.h>
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use RP2040W WiFi from WiFiMulti_Generic  
+  #endif
 #elif defined(CONFIG_PLATFORM_8721D)
   #include <WiFi.h>
-  #warning Use RTL8720 WiFi from WiFiMulti_Generic
+  
+  #if(_WIFIMULTI_LOGLEVEL_> 3)
+    #warning Use RTL8720 WiFi from WiFiMulti_Generic
+  #endif
 #else
   #if (ESP32)
     #include "WiFi.h"
-    #warning Use ESP32 WiFi for WiFiMulti_Generic
+    
+    #if(_WIFIMULTI_LOGLEVEL_> 3)
+      #warning Use ESP32 WiFi for WiFiMulti_Generic
+    #endif
   #elif (ESP8266)
     #include "ESP8266WiFi.h"
-    #warning Use ESP8266 WiFi for WiFiMulti_Generic
+    
+    #if(_WIFIMULTI_LOGLEVEL_> 3)
+      #warning Use ESP8266 WiFi for WiFiMulti_Generic
+    #endif
   #elif (USE_WIFI_CUSTOM && WIFI_USING_ESP_AT)
     #if WIFI_USING_ESP8266_AT_WEBSERVER
       #include <ESP8266_AT_WebServer.h>
-      #warning Use ESP8266_AT_WebServer Library for WiFiMulti_Generic
+      
+      #if(_WIFIMULTI_LOGLEVEL_> 3)
+        #warning Use ESP8266_AT_WebServer Library for WiFiMulti_Generic
+      #endif
     #else
       #include <WiFiEspAT.h>
-      #warning Use WiFiEspAT Library for WiFiMulti_Generic
+      
+      #if(_WIFIMULTI_LOGLEVEL_> 3)
+        #warning Use WiFiEspAT Library for WiFiMulti_Generic
+      #endif
     #endif
   #else
     #include <WiFi.h>
-    #warning Use WiFi.h from WiFiMulti_Generic
+    
+    #if(_WIFIMULTI_LOGLEVEL_> 3)
+      #warning Use WiFi.h from WiFiMulti_Generic
+    #endif
   #endif
 #endif  
 
@@ -209,6 +278,9 @@
 #elif defined(USE_WIFI_PORTENTA_H7) && USE_WIFI_PORTENTA_H7
   #include "PortentaH7/PortentaH7_WiFiMulti_Generic.hpp"
   #include "PortentaH7/PortentaH7_WiFiMulti_Generic_Impl.h" 
+#elif defined(WIFI_USE_RP2040W) && WIFI_USE_RP2040W
+  #include "RP2040W/RP2040W_WiFiMulti_Generic.hpp"
+  #include "RP2040W/RP2040W_WiFiMulti_Generic_Impl.h"   
 #elif defined(CONFIG_PLATFORM_8721D)
   #include "RTL8720/RTL8720_WiFiMulti_Generic.hpp"
   #include "RTL8720/RTL8720_WiFiMulti_Generic_Impl.h"
