@@ -18,7 +18,7 @@
 #define DEBUG_WIFI_MULTI_GENERIC_PORT   Serial
 
 // Debug Level from 0 to 4
-#define _WIFIMULTI_LOGLEVEL_            4
+#define _WIFIMULTI_LOGLEVEL_            2
 
 #define _WIFI_LOGLEVEL_                 1
 #define _WIFININA_LOGLEVEL_             3
@@ -68,6 +68,12 @@
 #elif ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_SAMD_NANO_33_IOT) )
 
   #define USE_WIFI_NINA         true
+  #define USE_WIFI101           false
+  #define USE_WIFI_CUSTOM       false
+
+#elif defined(ARDUINO_RASPBERRY_PI_PICO_W)
+ 
+  #define USE_WIFI_NINA         false
   #define USE_WIFI101           false
   #define USE_WIFI_CUSTOM       false
  
@@ -199,14 +205,13 @@
 #endif
 
 #if ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || \
-      defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || defined(ARDUINO_GENERIC_RP2040) )
-  #warning RP2040-based board selected
+      defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || defined(ARDUINO_GENERIC_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO_W) )
 
   #if defined(WIFI_USE_RP2040)
     #undef WIFI_USE_RP2040
   #endif
   #define WIFI_USE_RP2040      true
-  #warning Use RP2040 architecture from WiFiMulti_Generic
+
 #endif
 
 #if ( defined(ARDUINO_AVR_ADK) || defined(ARDUINO_AVR_MEGA) || defined(ARDUINO_AVR_MEGA2560) )
@@ -498,6 +503,8 @@
   // For Mega, use Serial1 or Serial3
   #define EspSerial Serial3
       
+#elif USE_WIFI_PORTENTA_H7  
+  #warning Portenta_H7 WiFi selected
 #else
 
   #warning Unknown or unsupported board
