@@ -105,7 +105,7 @@ This [**WiFiMulti_Generic library**](https://github.com/khoih-prog/WiFiMulti_Gen
  
  6. AVR Mega1280, 2560, ADK, 32U4, 16U4, etc. using Arduino, Adafruit or Sparkfun core. To use patch for `ArduinoSTL` library. **New**
 
- 7. RP2040-based boards, such as **Nano RP2040 Connect**, or **RASPBERRY_PI_PICO_W with CYW4343 WiFi**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico)
+ 7. RP2040-based boards, such as **Nano RP2040 Connect**, or **RASPBERRY_PI_PICO_W with CYW43439 WiFi**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico)
  
  8. RP2040-based boards, such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
 
@@ -1926,7 +1926,7 @@ Submit issues to: [WiFiMulti_Generic issues](https://github.com/khoih-prog/WiFiM
 22. Add support to Tlera Corp STM32WB boards (Firefly-WB55RG, Nucleo-WB55RG, etc.) using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
 23. Add support to  Maixduino boards using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
 24. Add support to Arduino, Sparkfun, Adafruit, etc. AVR boards (Mega, 32U4, etc.). To use `LibraryPatches` for `ArduinoSTL` library
-25. Add support to RASPBERRY_PI_PICO_W using CYW4343 WiFi with [**Earle Philhower's arduino-pico core** v2.4.0+](https://github.com/earlephilhower/arduino-pico)
+25. Add support to RASPBERRY_PI_PICO_W using CYW43439 WiFi with [**Earle Philhower's arduino-pico core** v2.4.0+](https://github.com/earlephilhower/arduino-pico)
 
 ---
 ---
