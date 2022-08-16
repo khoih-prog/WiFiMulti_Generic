@@ -1,5 +1,5 @@
 /**************************************************************************************************************************************
-  WiFiMulti.ino
+  WiFiMulti_RP2040W.ino
   For any WiFi shields, such as ESP32, ESP8266, Portenta_H7, WiFiNINA W101, W102, W13x, or custom, such as ESP8266/ESP32-AT, etc
   
   WiFiMulti_Generic is a library to adapt the  ESP32/ESP8266 WiFiMulti feature to other WiFi modules
@@ -22,9 +22,6 @@
 
 WiFiMulti_Generic wifiMulti;
 
-#if ( defined(ARDUINO_RASPBERRY_PI_PICO_W) )
-
-// Klugde to temporarily fix RP2040W WiFi.status() bug ( https://github.com/earlephilhower/arduino-pico/issues/762 )
 // Use any public host or your local host, such as ADSL/Cable modem, router, server
 //const char* host = "arduino.tips";
 const char* host = "192.168.2.1";
@@ -45,8 +42,6 @@ bool isWiFiConnected()
   
   return true;
 }
-
-#endif
 
 void heartBeatPrint()
 {
@@ -114,13 +109,7 @@ uint8_t connectMultiWiFi()
   if ( status == WL_CONNECTED )
   {
     WFM_LOGERROR1(F("WiFi connected after time: "), i);
-    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(",RSSI="), WiFi.RSSI());
-
-#if (defined(ESP32) || defined(ESP8266))
-    WFM_LOGERROR3(F("Channel:"), WiFi.channel(), F(",IP address:"), WiFi.localIP() );
-#else
-    WFM_LOGERROR1(F("IP address:"), WiFi.localIP() );
-#endif
+    WFM_LOGERROR3(F("SSID:"), WiFi.SSID(), F(", IP address:"), WiFi.localIP());
   }
   else
   {
@@ -138,14 +127,9 @@ uint8_t connectMultiWiFi()
 
 void check_WiFi()
 {
-#if ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) )
-  // Workaround for bug in https://github.com/arduino/ArduinoCore-mbed/issues/381
-  if ( (WiFi.status() != WL_CONNECTED) || (WiFi.RSSI() == 0) )
-#elif ( defined(ARDUINO_RASPBERRY_PI_PICO_W) )
+  //if ( (WiFi.status() != WL_CONNECTED) )
+  // Klugde to temporarily fix RP2040W WiFi.status() bug ( https://github.com/earlephilhower/arduino-pico/issues/762 )
   if (!isWiFiConnected())
-#else
-  if ( (WiFi.status() != WL_CONNECTED) )
-#endif
   {
     Serial.println(F("\nWiFi lost. Call connectMultiWiFi in loop"));
     connectMultiWiFi();
@@ -159,17 +143,12 @@ void check_status()
 
   static uint32_t current_millis;
 
-#if ( defined(ARDUINO_RASPBERRY_PI_PICO_W) )
-  #define WIFICHECK_INTERVAL    10000L
-#else
-  #define WIFICHECK_INTERVAL    1000L
-#endif
-
+#define WIFICHECK_INTERVAL    10000L
 #define HEARTBEAT_INTERVAL    10000L
 
   current_millis = millis();
 
-  // Check WiFi every WIFICHECK_INTERVAL (1) seconds.
+  // Check WiFi every WIFICHECK_INTERVAL (10) seconds.
   if ((current_millis > checkwifi_timeout) || (checkwifi_timeout == 0))
   {
     check_WiFi();
@@ -192,17 +171,8 @@ void setup()
   Serial.begin(115200);
   while (!Serial && millis() < 5000);
 
-  Serial.print(F("\nStarting WiFiMulti on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStarting WiFiMulti_RP2040W on ")); Serial.println(BOARD_NAME);
   Serial.println(WIFIMULTI_GENERIC_VERSION);
-
-#if WIFI_USING_ESP_AT
-  // initialize serial for ESP module
-  EspSerial.begin(115200);
-  // initialize ESP module
-  WiFi.init(&EspSerial);
-
-  Serial.println(F("WiFi shield init done"));
-#endif
 
   wifiMulti.addAP(your_ssid, your_pass);
   wifiMulti.addAP("HueNet2", "jenniqqs");

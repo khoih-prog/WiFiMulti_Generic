@@ -18,7 +18,7 @@
 #define DEBUG_WIFI_MULTI_GENERIC_PORT   Serial
 
 // Debug Level from 0 to 4
-#define _WIFIMULTI_LOGLEVEL_            2
+#define _WIFIMULTI_LOGLEVEL_            3
 
 #define _WIFI_LOGLEVEL_                 1
 #define _WIFININA_LOGLEVEL_             3
@@ -523,7 +523,9 @@
 
 #include <WiFiMulti_Generic.h>
 
-char your_ssid[] = "YOUR_SSID";        // your network SSID (name)
-char your_pass[] = "12345678";        // your network password
+char your_ssid[] = "HueNet1";        // your network SSID (name)
+char your_pass[] = "jenniqqs";        // your network password
+//char your_ssid[] = "YOUR_SSID";        // your network SSID (name)
+//char your_pass[] = "12345678";        // your network password
 
 #endif    //defines_h
