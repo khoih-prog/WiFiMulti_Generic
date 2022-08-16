@@ -175,7 +175,6 @@ void setup()
   Serial.println(WIFIMULTI_GENERIC_VERSION);
 
   wifiMulti.addAP(your_ssid, your_pass);
-  wifiMulti.addAP("HueNet2", "jenniqqs");
   wifiMulti.addAP("ssid_from_AP_1", "your_password_for_AP_1");
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");

@@ -523,9 +523,7 @@
 
 #include <WiFiMulti_Generic.h>
 
-char your_ssid[] = "HueNet1";        // your network SSID (name)
-char your_pass[] = "jenniqqs";        // your network password
-//char your_ssid[] = "YOUR_SSID";        // your network SSID (name)
-//char your_pass[] = "12345678";        // your network password
+char your_ssid[] = "YOUR_SSID";        // your network SSID (name)
+char your_pass[] = "12345678";        // your network password
 
 #endif    //defines_h
