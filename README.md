@@ -46,6 +46,7 @@
    * [1. ArduinoSTL for AVR boards](#1-ArduinoSTL-for-AVR-boards)
 * [Examples](#examples)
   * [ 1. WiFiMulti](examples/WiFiMulti)
+  * [ 2. WiFiMulti_RP2040W](examples/WiFiMulti_RP2040W) **New**
 * [Example WiFiMulti](#example-WiFiMulti)
   * [1. File WiFiMulti.ino](#1-File-WiFiMulti)
   * [2. File defines.h](#2-File-definesh)
@@ -60,6 +61,7 @@
   * [ 8. WiFiMulti on Arduino AVR Mega2560](#8-WiFiMulti-on-Arduino-AVR-Mega2560)
   * [ 9. WiFiMulti on RTL8720DN](#9-WiFiMulti-on-RTL8720DN)
   * [10. WiFiMulti on PORTENTA_H7_M7](#10-WiFiMulti-on-PORTENTA_H7_M7)
+  * [11. WiFiMulti on RP2040W](#11-WiFiMulti-on-RP2040W)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
 * [Issues](#issues)
@@ -539,6 +541,7 @@ Just copy the following file into the [`ArduinoSTL library`](https://github.com/
 ### Examples:
 
  1. [WiFiMulti](examples/WiFiMulti)
+ 2. [WiFiMulti_RP2040W](examples/WiFiMulti_RP2040W) **New**
 
 ---
 ---
@@ -547,12 +550,12 @@ Just copy the following file into the [`ArduinoSTL library`](https://github.com/
 
 #### 1. File [WiFiMulti.ino](examples/WiFiMulti/WiFiMulti.ino)
 
-https://github.com/khoih-prog/WiFiMulti_Generic/blob/40fa20df73304b8f63c271fa54117472f29eb938/examples/WiFiMulti/WiFiMulti.ino#L21-L193
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/02f8b5580ff5d7821299f219524df0c9d95e4b79/examples/WiFiMulti/WiFiMulti.ino#L21-L226
 
 
 #### 2. File [defines.h](examples/WiFiMulti/defines.h)
 
-https://github.com/khoih-prog/WiFiMulti_Generic/blob/40fa20df73304b8f63c271fa54117472f29eb938/examples/WiFiMulti/defines.h#L15-L529
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/02f8b5580ff5d7821299f219524df0c9d95e4b79/examples/WiFiMulti/defines.h#L1-L529
 
 ---
 ---
@@ -567,7 +570,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RASPBERRY_PI_PICO
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -657,7 +660,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RaspberryPi Pico
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -748,7 +751,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Nano RP2040 Connect
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -869,7 +872,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on NANO_RP2040_CONNECT
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -991,7 +994,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP8266_NODEMCU_ESP12E
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [APlistAdd] Add SSID: SSID = HueNet1
 [WFM] [APlistAdd] Add SSID: SSID = HueNet2
 Connecting WiFi...
@@ -1024,7 +1027,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32C3_DEV
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1235,7 +1238,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32S3_DEV
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1468,7 +1471,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Arduino AVR Mega2560/ADK
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -1555,7 +1558,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RTL8720DN
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1770,7 +1773,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on PORTENTA_H7_M7
-WiFiMulti_Generic v1.2.0
+WiFiMulti_Generic v1.2.1
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1862,6 +1865,71 @@ WiFi lost. Trying to scan and reconnect
 [WFM] IP address: 192.168.2.77
 ```
 
+
+---
+
+#### 11. WiFiMulti on RP2040W
+
+The following are debug terminal output when running example [WiFiMulti_RP2040W](examples/WiFiMulti_RP2040W) on `RASPBERRY_PI_PICO_W using CYW43439 WiFi`
+
+#### 10.1 First time => OK
+
+
+```
+Starting WiFiMulti on RASPBERRY_PI_PICO_W
+WiFiMulti_Generic v1.2.1
+[WFM] [addAP] add SSID: HueNet1
+[WFM] [addAP] add SSID: HueNet2
+[WFM] [addAP] add SSID: ssid_from_AP_1
+[WFM] [addAP] add SSID: ssid_from_AP_2
+[WFM] [addAP] add SSID: ssid_from_AP_3
+Connecting WiFi...
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 15
+[run] Connecting BSSID: [WFM] EE:EE:EE:EE:EE:EE
+[WFM] SSID:  HueNet1 , Best dB:  -62
+[WFM] [run] Connecting done.
+
+WiFi connected, SSID: HueNet1, IP address: 192.168.2.180
+[WFM] Client connected, Local IP =  192.168.2.180
+
+H[WFM] Client connected, Local IP =  192.168.2.180
+H[WFM] Connection failed. Local IP =  (IP unset)
+
+WiFi lost. Call connectMultiWiFi in loop
+WiFi lost. Trying to scan and reconnect
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 9
+[run] Connecting BSSID: [WFM] EE:EE:EE:EE:EE:EE
+[WFM] SSID:  HueNet2 , Best dB:  -62
+[WFM] [run] Connecting done.
+[WFM] WiFi connected after time:  1
+[WFM] SSID: HueNet2 ,RSSI= 0
+[WFM] IP address: 192.168.2.180
+H[WFM] Client connected, Local IP =  192.168.2.180
+```
+
+
+#### 10.2 Lost WiFi => Scan and auto-reconnect
+
+```
+H[WFM] Connection failed. Local IP =  (IP unset)
+
+WiFi lost. Call connectMultiWiFi in loop
+WiFi lost. Trying to scan and reconnect
+[WFM] [run] Scan done
+[WFM] [run] Number of Networks found: 9
+[run] Connecting BSSID: [WFM] EE:EE:EE:EE:EE:EE
+[WFM] SSID:  HueNet2 , Best dB:  -62
+[WFM] [run] Connecting done.
+[WFM] WiFi connected after time:  1
+[WFM] SSID: HueNet2 ,RSSI= 0
+[WFM] IP address: 192.168.2.180
+H[WFM] Client connected, Local IP =  192.168.2.180
+H[WFM] Connection failed. Local IP =  (IP unset)
+```
+
+
 ---
 ---
 
@@ -1875,7 +1943,7 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 
 // Use this to disable all output debug msgs
 // Debug Level from 0 to 4
-#define _WIFIMULTI_LOGLEVEL_                0
+#define _WIFIMULTI_LOGLEVEL_                2
 ```
 
 ---
@@ -1927,6 +1995,7 @@ Submit issues to: [WiFiMulti_Generic issues](https://github.com/khoih-prog/WiFiM
 23. Add support to  Maixduino boards using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
 24. Add support to Arduino, Sparkfun, Adafruit, etc. AVR boards (Mega, 32U4, etc.). To use `LibraryPatches` for `ArduinoSTL` library
 25. Add support to RASPBERRY_PI_PICO_W using CYW43439 WiFi with [**Earle Philhower's arduino-pico core** v2.4.0+](https://github.com/earlephilhower/arduino-pico)
+26. Workaround for RP2040W WiFi.status() bug
 
 ---
 ---

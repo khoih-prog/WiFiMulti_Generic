@@ -12,6 +12,7 @@
 
 
 * [Changelog](#changelog)
+  * [Releases v1.2.1](#releases-v121)
   * [Releases v1.2.0](#releases-v120)
   * [Releases v1.1.1](#releases-v111)
   * [Releases v1.1.0](#releases-v110)
@@ -21,6 +22,11 @@
 ---
 
 ## Changelog
+
+#### Releases v1.2.1
+
+1. Workaround for RP2040W WiFi.status() bug. Check [WiFi.status() wrongly reports WL_CONNECTED even when WiFi is lost and RSSI is always 0 dBm #762](https://github.com/earlephilhower/arduino-pico/issues/762)
+2. Add example [WiFiMulti_RP2040W](examples/WiFiMulti_RP2040W)
 
 #### Releases v1.2.0
 

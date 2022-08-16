@@ -1,6 +1,6 @@
 {
   "name": "WiFiMulti_Generic",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "keywords": "WiFi, WiFiMulti, WiFi-Multi, Arduino, ESP32, ESP8266, WiFiNINA, WiFiNINA-Generic, ESP8266-AT, ESP32-AT, RP2040, Nano-33-IoT, Nano-RP2040-Connect, SAMD, Teensy, Portenta, nRF52, SAM-DUE, AT-Command, mbed",
   "description": "Simple MultiWiFi library to adapt ESP32/ESP8266 MultiWiFi of WiFi libraries to all other WiFi modules and libraries. Currently supporting ESP32, ESP8266, Teensy, SAM DUE, SAMD21, SAMD51, STM32F/L/H/G/WB/MP1, nRF52, RP2040-based (Nano-RP2040-Connect, RASPBERRY_PI_PICO, RASPBERRY_PI_PICO_W, etc.) boards using WiFi, such as WiFiNINA, WiFi101, CYW43439, U-Blox W101, W102, ESP8266/ESP32-AT modules/shields, with functions similar to those of ESP8266/ESP32 MultiWiFi of WiFi libraries",
   "authors":
