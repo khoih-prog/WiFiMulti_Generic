@@ -48,7 +48,7 @@
   * [ 1. WiFiMulti](examples/WiFiMulti)
   * [ 2. WiFiMulti_RP2040W](examples/WiFiMulti_RP2040W) **New**
 * [Example WiFiMulti](#example-WiFiMulti)
-  * [1. File WiFiMulti.ino](#1-File-WiFiMulti)
+  * [1. File WiFiMulti.ino](#1-File-WiFiMultiino)
   * [2. File defines.h](#2-File-definesh)
 * [Debug Terminal Output Samples](#debug-terminal-output-samples)
   * [ 1. WiFiMulti on RASPBERRY_PI_PICO](#1-WiFiMulti-on-RASPBERRY_PI_PICO)
