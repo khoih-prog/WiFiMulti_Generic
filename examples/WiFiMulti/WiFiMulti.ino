@@ -24,26 +24,19 @@ WiFiMulti_Generic wifiMulti;
 
 #if ( defined(ARDUINO_RASPBERRY_PI_PICO_W) )
 
-// Klugde to temporarily fix RP2040W WiFi.status() bug ( https://github.com/earlephilhower/arduino-pico/issues/762 )
-// Use any public host or your local host, such as ADSL/Cable modem, router, server
-//const char* host = "arduino.tips";
-const char* host = "192.168.2.1";
-const uint16_t port = 80;
-
 bool isWiFiConnected()
 {
-  // Use WiFiClient class to create TCP connections
-  WiFiClient client;
-  
-  if (!client.connect(host, port)) 
+  // You can change longer or shorter depending on your network response
+  // Shorter => more responsive, but more ping traffic
+  static uint8_t theTTL = 10;
+
+  // Use ping() to test TCP connections
+  if (WiFi.ping(WiFi.gatewayIP(), theTTL) == theTTL)
   {
-    WFM_LOGINFO1("Connection failed. Local IP = ", client.localIP());
-    return false;
+    return true;
   }
 
-  WFM_LOGINFO1("Client connected, Local IP = ", client.localIP());
-  
-  return true;
+  return false;
 }
 
 #endif
@@ -160,7 +153,9 @@ void check_status()
   static uint32_t current_millis;
 
 #if ( defined(ARDUINO_RASPBERRY_PI_PICO_W) )
-  #define WIFICHECK_INTERVAL    10000L
+  // You can change longer or shorter depending on your network response
+  // Shorter => more responsive, but more ping traffic
+  #define WIFICHECK_INTERVAL    1000L
 #else
   #define WIFICHECK_INTERVAL    1000L
 #endif
@@ -205,6 +200,7 @@ void setup()
 #endif
 
   wifiMulti.addAP(your_ssid, your_pass);
+  wifiMulti.addAP(your_ssid1, your_pass1);
   wifiMulti.addAP("ssid_from_AP_1", "your_password_for_AP_1");
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");

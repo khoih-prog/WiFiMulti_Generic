@@ -42,7 +42,9 @@
 
 #include <WiFiMulti_Generic.h>
 
-char your_ssid[] = "YOUR_SSID";        // your network SSID (name)
-char your_pass[] = "12345678";        // your network password
+char your_ssid[] = "YOUR_SSID";         // your network SSID (name)
+char your_pass[] = "12345678";          // your network password
+char your_ssid1[] = "YOUR_SSID";        // your network SSID (name)
+char your_pass1[] = "12345678";         // your network password
 
 #endif    //defines_h

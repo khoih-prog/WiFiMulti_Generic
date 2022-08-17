@@ -12,6 +12,7 @@
 
 
 * [Changelog](#changelog)
+  * [Releases v1.2.2](#releases-v122)
   * [Releases v1.2.1](#releases-v121)
   * [Releases v1.2.0](#releases-v120)
   * [Releases v1.1.1](#releases-v111)
@@ -22,6 +23,10 @@
 ---
 
 ## Changelog
+
+#### Releases v1.2.2
+
+1.  Better workaround for RP2040W WiFi.status() bug using ping() to local gateway. Check [WiFi.status() wrongly reports WL_CONNECTED even when WiFi is lost and RSSI is always 0 dBm #762](https://github.com/earlephilhower/arduino-pico/issues/762)
 
 #### Releases v1.2.1
 

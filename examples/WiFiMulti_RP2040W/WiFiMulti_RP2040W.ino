@@ -22,25 +22,19 @@
 
 WiFiMulti_Generic wifiMulti;
 
-// Use any public host or your local host, such as ADSL/Cable modem, router, server
-//const char* host = "arduino.tips";
-const char* host = "192.168.2.1";
-const uint16_t port = 80;
-
 bool isWiFiConnected()
 {
-  // Use WiFiClient class to create TCP connections
-  WiFiClient client;
-  
-  if (!client.connect(host, port)) 
+  // You can change longer or shorter depending on your network response
+  // Shorter => more responsive, but more ping traffic
+  static uint8_t theTTL = 10;
+
+  // Use ping() to test TCP connections
+  if (WiFi.ping(WiFi.gatewayIP(), theTTL) == theTTL)
   {
-    WFM_LOGINFO1("Connection failed. Local IP = ", client.localIP());
-    return false;
+    return true;
   }
 
-  WFM_LOGINFO1("Client connected, Local IP = ", client.localIP());
-  
-  return true;
+  return false;
 }
 
 void heartBeatPrint()
@@ -67,22 +61,8 @@ void heartBeatPrint()
 
 uint8_t connectMultiWiFi()
 {
-#if defined(ESP32)
-  // For ESP32, this better be 0 to shorten the connect time.
-  // For ESP32-S2/C3, must be > 500
-  #if ( USING_ESP32_S2 || USING_ESP32_C3 )
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           500L
-  #else
-    // For ESP32 core v1.0.6, must be >= 500
-    #define WIFI_MULTI_1ST_CONNECT_WAITING_MS           800L
-  #endif
-#elif (defined(ESP8266))
-  // For ESP8266, this better be 2200 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             2200L
-#else
-  // For general board, this better be 1000 to enable connect the 1st time
-  #define WIFI_MULTI_1ST_CONNECT_WAITING_MS             1000L
-#endif
+// For general board, this better be 1000 to enable connect the 1st time
+#define WIFI_MULTI_1ST_CONNECT_WAITING_MS               1000L
 
 #define WIFI_MULTI_CONNECT_WAITING_MS                   500L
 
@@ -143,7 +123,10 @@ void check_status()
 
   static uint32_t current_millis;
 
-#define WIFICHECK_INTERVAL    10000L
+// You can change longer or shorter depending on your network response
+// Shorter => more responsive, but more ping traffic
+#define WIFICHECK_INTERVAL    1000L
+
 #define HEARTBEAT_INTERVAL    10000L
 
   current_millis = millis();
@@ -174,7 +157,8 @@ void setup()
   Serial.print(F("\nStarting WiFiMulti_RP2040W on ")); Serial.println(BOARD_NAME);
   Serial.println(WIFIMULTI_GENERIC_VERSION);
 
-  wifiMulti.addAP(your_ssid, your_pass);
+  wifiMulti.addAP(your_ssid,  your_pass);
+  wifiMulti.addAP(your_ssid1, your_pass1);
   wifiMulti.addAP("ssid_from_AP_1", "your_password_for_AP_1");
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");

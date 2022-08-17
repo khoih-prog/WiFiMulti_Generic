@@ -24,7 +24,7 @@
   Copyright (c) 2015 Markus Sattler. All rights reserved.
   This file is part of the esp8266 core for Arduino environment.
   
-  Version: 1.2.1
+  Version: 1.2.2
   
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -32,7 +32,8 @@
   1.1.0   K Hoang      16/02/2020 Add support to WiFi101 and many more boards (PortentaH7, megaAVR, Sparkfun SAMD, etc.)
   1.1.1   K Hoang      26/04/2020 Fix bug
   1.2.0   K Hoang      12/08/2022 Add support to RASPBERRY_PI_PICO_W using CYW4343 WiFi
-  1.2.1   K Hoang      16/08/2022 Workarounnd for RP2040W WiFi.status() bug
+  1.2.1   K Hoang      16/08/2022 Workaround for RP2040W WiFi.status() bug
+  1.2.2   K Hoang      16/08/2022 Better workaround for RP2040W WiFi.status() bug using ping() to local gateway
  ***************************************************************************************************************************************/
 
 #pragma once
