@@ -550,12 +550,12 @@ Just copy the following file into the [`ArduinoSTL library`](https://github.com/
 
 #### 1. File [WiFiMulti.ino](examples/WiFiMulti/WiFiMulti.ino)
 
-https://github.com/khoih-prog/WiFiMulti_Generic/blob/02f8b5580ff5d7821299f219524df0c9d95e4b79/examples/WiFiMulti/WiFiMulti.ino#L21-L226
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/b9531554ef8f8a42c4268fe12e57655fecee570c/examples/WiFiMulti/WiFiMulti.ino#L21-L222
 
 
 #### 2. File [defines.h](examples/WiFiMulti/defines.h)
 
-https://github.com/khoih-prog/WiFiMulti_Generic/blob/02f8b5580ff5d7821299f219524df0c9d95e4b79/examples/WiFiMulti/defines.h#L1-L529
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/b9531554ef8f8a42c4268fe12e57655fecee570c/examples/WiFiMulti/defines.h#L1-L531
 
 ---
 ---
@@ -570,7 +570,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RASPBERRY_PI_PICO
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -660,7 +660,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RaspberryPi Pico
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -751,7 +751,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Nano RP2040 Connect
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -872,7 +872,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on NANO_RP2040_CONNECT
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -994,7 +994,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP8266_NODEMCU_ESP12E
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [APlistAdd] Add SSID: SSID = HueNet1
 [WFM] [APlistAdd] Add SSID: SSID = HueNet2
 Connecting WiFi...
@@ -1027,7 +1027,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32C3_DEV
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1238,7 +1238,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on ESP32S3_DEV
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1471,7 +1471,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on Arduino AVR Mega2560/ADK
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 WiFi shield init done
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
@@ -1558,7 +1558,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on RTL8720DN
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1773,7 +1773,7 @@ The following are debug terminal output when running example [WiFiMulti](example
 
 ```
 Starting WiFiMulti on PORTENTA_H7_M7
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 Connecting WiFi...
@@ -1877,7 +1877,7 @@ The following are debug terminal output when running example [WiFiMulti_RP2040W]
 
 ```
 Starting WiFiMulti on RASPBERRY_PI_PICO_W
-WiFiMulti_Generic v1.2.1
+WiFiMulti_Generic v1.2.2
 [WFM] [addAP] add SSID: HueNet1
 [WFM] [addAP] add SSID: HueNet2
 [WFM] [addAP] add SSID: ssid_from_AP_1
@@ -1995,7 +1995,7 @@ Submit issues to: [WiFiMulti_Generic issues](https://github.com/khoih-prog/WiFiM
 23. Add support to  Maixduino boards using `WiFi101`, `WiFiNINA_Generic` or `WiFiEspAT`
 24. Add support to Arduino, Sparkfun, Adafruit, etc. AVR boards (Mega, 32U4, etc.). To use `LibraryPatches` for `ArduinoSTL` library
 25. Add support to RASPBERRY_PI_PICO_W using CYW43439 WiFi with [**Earle Philhower's arduino-pico core** v2.4.0+](https://github.com/earlephilhower/arduino-pico)
-26. Workaround for RP2040W WiFi.status() bug
+26. Workaround for RP2040W WiFi.status() bug using ping()
 
 ---
 ---
