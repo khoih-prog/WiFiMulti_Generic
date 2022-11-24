@@ -1,17 +1,17 @@
 /**************************************************************************************************************************************
   WiFiMulti_RP2040W.ino
   For any WiFi shields, such as ESP32, ESP8266, Portenta_H7, WiFiNINA W101, W102, W13x, or custom, such as ESP8266/ESP32-AT, etc
-  
+
   WiFiMulti_Generic is a library to adapt the  ESP32/ESP8266 WiFiMulti feature to other WiFi modules
-  
+
   Based on and modified from WiFiMulti of ESP32 core: https://github.com/espressif/arduino-esp32
   Based on and modified from WiFiMulti of ESP8266 core: https://github.com/esp8266/Arduino
- 
+
   Built by Khoi Hoang https://github.com/khoih-prog/WiFiMulti_Generic
-  
+
   License under GPL-3.0
-  
-  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+
+  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
   as published bythe Free Software Foundation, either version 3 of the License, or (at your option) any later version.
   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
@@ -56,12 +56,12 @@ void heartBeatPrint()
   else if (num++ % 10 == 0)
   {
     Serial.print(F(" "));
-  } 
+  }
 }
 
 uint8_t connectMultiWiFi()
 {
-// For general board, this better be 1000 to enable connect the 1st time
+  // For general board, this better be 1000 to enable connect the 1st time
 #define WIFI_MULTI_1ST_CONNECT_WAITING_MS               1000L
 
 #define WIFI_MULTI_CONNECT_WAITING_MS                   500L
@@ -107,9 +107,9 @@ uint8_t connectMultiWiFi()
 
 void check_WiFi()
 {
-  //if ( (WiFi.status() != WL_CONNECTED) )
-  // Klugde to temporarily fix RP2040W WiFi.status() bug ( https://github.com/earlephilhower/arduino-pico/issues/762 )
-  if (!isWiFiConnected())
+  if ( (WiFi.status() != WL_CONNECTED) )
+    // Klugde to temporarily fix RP2040W WiFi.status() bug ( https://github.com/earlephilhower/arduino-pico/issues/762 )
+    //if (!isWiFiConnected())
   {
     Serial.println(F("\nWiFi lost. Call connectMultiWiFi in loop"));
     connectMultiWiFi();
@@ -123,8 +123,8 @@ void check_status()
 
   static uint32_t current_millis;
 
-// You can change longer or shorter depending on your network response
-// Shorter => more responsive, but more ping traffic
+  // You can change longer or shorter depending on your network response
+  // Shorter => more responsive, but more ping traffic
 #define WIFICHECK_INTERVAL    1000L
 
 #define HEARTBEAT_INTERVAL    10000L
@@ -152,9 +152,11 @@ void check_status()
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.print(F("\nStarting WiFiMulti_RP2040W on ")); Serial.println(BOARD_NAME);
+  Serial.print(F("\nStarting WiFiMulti_RP2040W on "));
+  Serial.println(BOARD_NAME);
   Serial.println(WIFIMULTI_GENERIC_VERSION);
 
   wifiMulti.addAP(your_ssid,  your_pass);

@@ -1,24 +1,24 @@
 /**************************************************************************************************************************************
   WiFiMulti_Generic_Debug.h
   For any WiFi shields, such as ESP32, ESP8266, Portenta_H7, WiFiNINA W101, W102, W13x, or custom, such as ESP8266/ESP32-AT, etc
-  
+
   WiFiMulti_Generic is a library to adapt the  ESP32/ESP8266 WiFiMulti feature to other WiFi modules
-  
+
   Based on and modified from WiFiMulti of ESP32 core: https://github.com/espressif/arduino-esp32
   Based on and modified from WiFiMulti of ESP8266 core: https://github.com/esp8266/Arduino
- 
+
   Built by Khoi Hoang https://github.com/khoih-prog/WiFiMulti_Generic
-  
+
   License under GPL-3.0
-  
-  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+
+  This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
   as published bythe Free Software Foundation, either version 3 of the License, or (at your option) any later version.
   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
   You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>
-  
+
   Version: 1.2.2
-  
+
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      15/02/2020 Initial coding for ESP32, ESP8266, WiFiNINA and ESP_AT modules
@@ -72,7 +72,7 @@ const char WFM_LINE[]  = "======================================================
   #define WFM_PRINT_LINE      WFM_PRINT(WFM_LINE)
 #else
   #define WFM_PRINT_LINE
-#endif  
+#endif
 
 #define WFM_PRINT           WFM_DEBUG_OUTPUT.print
 #define WFM_PRINTLN         WFM_DEBUG_OUTPUT.println
