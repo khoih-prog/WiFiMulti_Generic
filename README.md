@@ -579,12 +579,12 @@ Just copy the following file into the [`ArduinoSTL library`](https://github.com/
 
 #### 1. File [WiFiMulti.ino](examples/WiFiMulti/WiFiMulti.ino)
 
-https://github.com/khoih-prog/WiFiMulti_Generic/blob/b9531554ef8f8a42c4268fe12e57655fecee570c/examples/WiFiMulti/WiFiMulti.ino#L21-L222
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/7969f1ab1f5af040662b71c131e1085b1e25ebf2/examples/WiFiMulti/WiFiMulti.ino#L21-L225
 
 
 #### 2. File [defines.h](examples/WiFiMulti/defines.h)
 
-https://github.com/khoih-prog/WiFiMulti_Generic/blob/b9531554ef8f8a42c4268fe12e57655fecee570c/examples/WiFiMulti/defines.h#L1-L531
+https://github.com/khoih-prog/WiFiMulti_Generic/blob/7969f1ab1f5af040662b71c131e1085b1e25ebf2/examples/WiFiMulti/defines.h#L1-L531
 
 ---
 ---
