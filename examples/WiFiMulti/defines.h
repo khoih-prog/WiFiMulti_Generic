@@ -61,8 +61,8 @@
 
 #elif ( defined(ARDUINO_SAMD_MKR1000)  || defined(ARDUINO_SAMD_MKRWIFI1010) )
 
-#define USE_WIFI_NINA         false
-#define USE_WIFI101           true
+#define USE_WIFI_NINA         true
+#define USE_WIFI101           false
 #define USE_WIFI_CUSTOM       false
 
 #elif ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_SAMD_NANO_33_IOT) )
